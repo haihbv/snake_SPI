@@ -10,7 +10,7 @@ void Init(void)
 	st7735_InvertColors(DISABLE);
 	button.Init();
 	snake.Init();
-	
+
 	TaskFunction();
 }
 void Loop(void)

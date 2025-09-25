@@ -162,12 +162,12 @@ void st7735_PutChar(uint8_t x, uint8_t y, uint8_t kitu, Font_Define_t f, uint16_
 void st7735_PutString(uint8_t x, uint8_t y, const char *str, Font_Define_t f, uint16_t color, uint16_t background)
 {
 	uint8_t startX = x;
-//	while (*str)
-//	{
-//		st7735_PutChar(x, y, *str, f, color, background);
-//		x += f.width;
-//		str++;
-//	}
+	//	while (*str)
+	//	{
+	//		st7735_PutChar(x, y, *str, f, color, background);
+	//		x += f.width;
+	//		str++;
+	//	}
 	while (*str)
 	{
 		if (x + f.width > ST7735_WIDTH)
@@ -179,7 +179,7 @@ void st7735_PutString(uint8_t x, uint8_t y, const char *str, Font_Define_t f, ui
 				break;
 			}
 		}
-		
+
 		st7735_PutChar(x, y, *str, f, color, background);
 		x += f.width;
 		str++;
@@ -303,15 +303,16 @@ void st7735_Direction(uint8_t direction)
 
 void st7735_DrawHorizontal_Line(uint8_t x, uint8_t y, uint8_t w, uint16_t color)
 {
-	if (y >= ST7735_HEIGHT) return;
+	if (y >= ST7735_HEIGHT)
+		return;
 	if (x + w > ST7735_WIDTH)
 	{
 		w = ST7735_WIDTH - x;
 	}
-	
+
 	st7735_SetWindow(x, y, x + w - 1, y);
 	st7735_SendCmd(ST7735_RAMWR);
-	
+
 	ST7735_CS_LOW();
 	GPIO_SetBits(DC_Port, DC_Pin);
 	for (uint8_t i = 0; i < w; i++)
@@ -325,15 +326,16 @@ void st7735_DrawHorizontal_Line(uint8_t x, uint8_t y, uint8_t w, uint16_t color)
 }
 void st7735_DrawVerical_Line(uint8_t x, uint8_t y, uint8_t h, uint16_t color)
 {
-	if (x >= ST7735_WIDTH) return;
+	if (x >= ST7735_WIDTH)
+		return;
 	if (y + h > ST7735_HEIGHT)
 	{
 		h = ST7735_HEIGHT - y;
 	}
-	
+
 	st7735_SetWindow(x, y, x, y + h - 1);
 	st7735_SendCmd(ST7735_RAMWR);
-	
+
 	ST7735_CS_LOW();
 	GPIO_SetBits(DC_Port, DC_Pin);
 	for (uint8_t i = 0; i < h; i++)

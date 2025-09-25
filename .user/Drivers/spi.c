@@ -1,4 +1,5 @@
 #include "spi.h"
+#include "stm32f10x_spi.h"
 
 static SPI_TypeDef *pSPI = SPI1;
 SPI_Driver_t spi1;
@@ -90,13 +91,12 @@ void spi_Master_Transmit(uint8_t txData)
 		;
 }
 
-
 /* Simulate OOP using C */
 
 static void spi1_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	
+
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_SPI1, ENABLE);
 
 	// PA5, PA7: SCK, MOSI - AF_PP
@@ -114,21 +114,21 @@ static void spi1_init(void)
 	GPIO_InitStruct.GPIO_Pin = CS_Pin;
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_Init(CS_Port, &GPIO_InitStruct);
-	
+
 	SPI1->CR1 = 0;
 	SPI1->CR1 |= 1 << 2;
 	SPI1->CR1 |= (0x02 << 3);
 	SPI1->CR1 |= (1 << 9);
 	SPI1->CR1 |= (1 << 8);
 	SPI1->CR1 |= (1 << 6);
-	
+
 	GPIO_SetBits(CS_Port, CS_Pin);
 }
 
 static void spi2_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	
+
 	// PB13, PB15: SCK, MOSI - AF_PP
 	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_15;
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
@@ -144,14 +144,14 @@ static void spi2_init(void)
 	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_12;
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_Init(GPIOB, &GPIO_InitStruct);
-	
+
 	SPI2->CR1 = 0;
 	SPI2->CR1 |= 1 << 2;
 	SPI2->CR1 |= (0x02 << 3);
 	SPI2->CR1 |= (1 << 9);
 	SPI2->CR1 |= (1 << 8);
 	SPI2->CR1 |= (1 << 6);
-	
+
 	GPIO_SetBits(GPIOB, GPIO_Pin_12);
 }
 
@@ -186,7 +186,7 @@ void SPI_AutoInit(void)
 {
 	spi1.Init = spi1_init;
 	spi1.Transfer = spi1_transfer;
-	
+
 	spi2.Init = spi2_init;
 	spi2.Transfer = spi2_transfer;
 }

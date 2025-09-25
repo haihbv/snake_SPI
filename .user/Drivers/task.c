@@ -37,19 +37,18 @@ void TaskFunction(void)
 	ButtonTaskStruct.LastTick = 0;
 	ButtonTaskStruct.Period = 10;
 	ButtonTaskStruct.TaskHandler = ButtonTask;
-	
+
 	SnakeTaskStruct.LastTick = 0;
 	SnakeTaskStruct.Period = 200;
 	SnakeTaskStruct.TaskHandler = FlushSnakeTask;
 }
 
-static Task_t* TaskList[] = {
+static Task_t *TaskList[] = {
 	&ButtonTaskStruct,
-	&SnakeTaskStruct
-};
+	&SnakeTaskStruct};
 
-#define SIZE_TASK (sizeof(TaskList) / sizeof(Task_t*))
-	
+#define SIZE_TASK (sizeof(TaskList) / sizeof(Task_t *))
+
 void WordAssignment(void)
 {
 	uint32_t current = millis();
@@ -57,9 +56,8 @@ void WordAssignment(void)
 	{
 		if (current - TaskList[i]->LastTick >= TaskList[i]->Period)
 		{
-			TaskList[i]->TaskHandler(); // <call Function>
+			TaskList[i]->TaskHandler();		 // <call Function>
 			TaskList[i]->LastTick = current; // <update thoi gian>
 		}
 	}
 }
-
