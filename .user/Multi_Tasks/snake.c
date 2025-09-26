@@ -13,8 +13,8 @@ static Point_t food;
 static Point_t tail;
 GameState_e gameState;
 
-#define GRID_W  (ST7735_WIDTH  / BLOCK_SIZE)
-#define GRID_H  (ST7735_HEIGHT / BLOCK_SIZE)
+#define GRID_W (ST7735_WIDTH / BLOCK_SIZE)
+#define GRID_H (ST7735_HEIGHT / BLOCK_SIZE)
 #define CELL(x) ((x) * BLOCK_SIZE)
 
 static uint8_t s_rng_seeded = 0;
@@ -29,13 +29,13 @@ void Snake_Init(void)
 		srand(millis());
 		s_rng_seeded = 1;
 	}
-	
+
 	snake_length = 3;
 	snakeBody[0] = (Point_t){5, 5};
 	snakeBody[1] = (Point_t){4, 5};
 	snakeBody[2] = (Point_t){3, 5};
 	direction = SNAKE_RIGHT;
-	
+
 	gameState = GAME_RUNNING;
 
 	/* Random moi khi start game */
@@ -50,14 +50,11 @@ void Snake_Init(void)
 		uint16_t color = (i == 0) ? GREEN : YELLOW;
 		st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, color);
 	}
-	/* Ve food */
-	// st7735_FillRect((uint8_t)food.x * BLOCK_SIZE, (uint8_t)food.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, RED);
 	draw_food_cell(food.x, food.y, RED);
-	// st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, radius, RED);
 }
 void Snake_SetDirection(SnakeDirection_e dir)
 {
-	/* Chan quay dau 180° */
+	/* Chan quay dau 180 do */
 	if ((dir == SNAKE_UP && direction == SNAKE_DOWN) || (dir == SNAKE_DOWN && direction == SNAKE_UP) || (dir == SNAKE_LEFT && direction == SNAKE_RIGHT) || (dir == SNAKE_RIGHT && direction == SNAKE_LEFT))
 	{
 		return;
@@ -89,18 +86,20 @@ static void Snake_Random_Food(void)
 	draw_food_cell(food.x, food.y, RED);
 }
 
+/* Ve food */
 static inline void draw_food_cell(int fx, int fy, uint16_t color)
 {
 	const uint8_t cell_x0 = (uint8_t)CELL(fx);
-  const uint8_t cell_y0 = (uint8_t)CELL(fy);
-  const uint8_t cell_x1 = cell_x0 + BLOCK_SIZE - 1;
-  const uint8_t cell_y1 = cell_y0 + BLOCK_SIZE - 1;
-	
+	const uint8_t cell_y0 = (uint8_t)CELL(fy);
+	const uint8_t cell_x1 = cell_x0 + BLOCK_SIZE - 1;
+	const uint8_t cell_y1 = cell_y0 + BLOCK_SIZE - 1;
+
 	const uint8_t cx = cell_x0 + BLOCK_SIZE / 2;
-  const uint8_t cy = cell_y0 + BLOCK_SIZE / 2;
-	
+	const uint8_t cy = cell_y0 + BLOCK_SIZE / 2;
+
 	uint8_t r = BLOCK_SIZE / 2;
-	if (r > 0) r -= 1;
+	if (r > 0)
+		r -= 1;
 	st7735_FillCircleInBox(cx, cy, r, cell_x0, cell_y0, cell_x1, cell_y1, color);
 }
 
@@ -152,7 +151,7 @@ void Snake_Update(void)
 	{
 		y_new = 0;
 	}
-	
+
 	/* update snake head*/
 	snakeBody[0].x = (uint8_t)x_new;
 	snakeBody[0].y = (uint8_t)y_new;

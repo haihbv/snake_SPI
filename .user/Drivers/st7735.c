@@ -196,28 +196,35 @@ void st7735_FillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint16_t color)
 	int16_t y0 = y;
 	int16_t x1 = (int16_t)x + (int16_t)w - 1;
 	int16_t y1 = (int16_t)y + (int16_t)h - 1;
-	
-	if (x0 >= ST7735_WIDTH || y0 >= ST7735_HEIGHT) return;
-	if (x1 < 0 || y1 < 0) return;
 
-	if (x0 < 0) x0 = 0;
-	if (y0 < 0) y0 = 0;
-	if (x1 >= ST7735_WIDTH)  x1 = ST7735_WIDTH  - 1;
-  if (y1 >= ST7735_HEIGHT) y1 = ST7735_HEIGHT - 1;
-	
+	if (x0 >= ST7735_WIDTH || y0 >= ST7735_HEIGHT)
+		return;
+	if (x1 < 0 || y1 < 0)
+		return;
+
+	if (x0 < 0)
+		x0 = 0;
+	if (y0 < 0)
+		y0 = 0;
+	if (x1 >= ST7735_WIDTH)
+		x1 = ST7735_WIDTH - 1;
+	if (y1 >= ST7735_HEIGHT)
+		y1 = ST7735_HEIGHT - 1;
+
 	uint16_t cw = (uint16_t)(x1 - x0 + 1);
-  uint16_t ch = (uint16_t)(y1 - y0 + 1);
-	
-	if (cw == 0 || ch == 0) return;
+	uint16_t ch = (uint16_t)(y1 - y0 + 1);
+
+	if (cw == 0 || ch == 0)
+		return;
 
 	st7735_SetWindow((uint8_t)x0, (uint8_t)y0, (uint8_t)x1, (uint8_t)y1);
 	// st7735_SendCmd(ST7735_RAMWR);
 
 	ST7735_CS_LOW();
-  ST7735_DC_HIGH();
-	
+	ST7735_DC_HIGH();
+
 	uint32_t count = (uint32_t)cw * (uint32_t)ch;
-	
+
 	while (count--)
 	{
 		spi1.Transfer(color >> 8);
@@ -228,33 +235,41 @@ void st7735_FillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint16_t color)
 
 static inline void _drawHSpanClippedToBox(int16_t xL, int16_t xR, int16_t y, int16_t bx0, int16_t by0, int16_t bx1, int16_t by1, uint16_t color)
 {
-	if (y < by0 || y > by1) return;
-	if (xL > xR) 
-	{ 
-		int16_t t = xL; 
-		xL = xR; 
-		xR = t; 
+	if (y < by0 || y > by1)
+		return;
+	if (xL > xR)
+	{
+		int16_t t = xL;
+		xL = xR;
+		xR = t;
 	}
-	if (xR < bx0 || xL > bx1) return;
+	if (xR < bx0 || xL > bx1)
+		return;
 
-	if (xL < bx0) xL = bx0;
-	if (xR > bx1) xR = bx1;
+	if (xL < bx0)
+		xL = bx0;
+	if (xR > bx1)
+		xR = bx1;
 
-	if (y < 0 || y >= ST7735_HEIGHT) return;
-	if (xR < 0 || xL >= ST7735_WIDTH) return;
-	if (xL < 0) xL = 0;
-	if (xR >= ST7735_WIDTH) xR = ST7735_WIDTH - 1;
-	
+	if (y < 0 || y >= ST7735_HEIGHT)
+		return;
+	if (xR < 0 || xL >= ST7735_WIDTH)
+		return;
+	if (xL < 0)
+		xL = 0;
+	if (xR >= ST7735_WIDTH)
+		xR = ST7735_WIDTH - 1;
+
 	st7735_SetWindow((uint8_t)xL, (uint8_t)y, (uint8_t)xR, (uint8_t)y);
-	
+
 	ST7735_CS_LOW();
-  ST7735_DC_HIGH();
-	
+	ST7735_DC_HIGH();
+
 	uint16_t n = (uint16_t)(xR - xL + 1);
 	while (n--)
 	{
 		spi1.Transfer(color >> 8);
-    spi1.Transfer(color & 0xFF);
+		spi1.Transfer(color & 0xFF);
 	}
 	ST7735_CS_HIGH();
 }
@@ -290,9 +305,9 @@ void st7735_FillCircleInBox(uint8_t cx, uint8_t cy, uint8_t r, uint8_t bx0, uint
 	{
 		_drawHSpanClippedToBox(cx - x, cx + x, cy + y, bx0, by0, bx1, by1, color);
 		_drawHSpanClippedToBox(cx - y, cx + y, cy + x, bx0, by0, bx1, by1, color);
-    _drawHSpanClippedToBox(cx - x, cx + x, cy - y, bx0, by0, bx1, by1, color);
-    _drawHSpanClippedToBox(cx - y, cx + y, cy - x, bx0, by0, bx1, by1, color);
-		
+		_drawHSpanClippedToBox(cx - x, cx + x, cy - y, bx0, by0, bx1, by1, color);
+		_drawHSpanClippedToBox(cx - y, cx + y, cy - x, bx0, by0, bx1, by1, color);
+
 		y++;
 		if (err < 0)
 		{
@@ -304,7 +319,6 @@ void st7735_FillCircleInBox(uint8_t cx, uint8_t cy, uint8_t r, uint8_t bx0, uint
 			err += 2 * (y - x) + 1;
 		}
 	}
-	
 }
 
 void st7735_InvertColors(_Bool Invert)
@@ -477,4 +491,7 @@ void lcd_AutoInit(void)
 	lcd.Circle = st7735_FillCircle;
 	lcd.Invert = st7735_InvertColors;
 	lcd.Bitmap = st7735_BitMap;
+	lcd.CricleInBox = st7735_FillCircleInBox;
+	lcd.DrawHLine = st7735_DrawHorizontal_Line;
+	lcd.DrawVLine = st7735_DrawVerical_Line;
 }

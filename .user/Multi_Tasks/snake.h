@@ -1,6 +1,10 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 
 #define BLOCK_SIZE 8
@@ -20,11 +24,11 @@ typedef enum
 	SNAKE_RIGHT
 } SnakeDirection_e;
 
-typedef enum 
+typedef enum
 {
 	GAME_WAIT_START,
-  GAME_RUNNING,
-  GAME_OVER
+	GAME_RUNNING,
+	GAME_OVER
 } GameState_e;
 
 extern GameState_e gameState;
@@ -45,5 +49,9 @@ void Snake_Update(void);
 void Snake_Draw(void);
 void Snake_SetDirection(SnakeDirection_e dir);
 void Snake_Reset(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* SNAKE_H */

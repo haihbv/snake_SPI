@@ -6,9 +6,9 @@ Btn_Driver_t button;
 static const uint32_t TIME_DEBOUNCE = 20;
 
 static const uint16_t ctrlPins[CTRL_BTN_COUNT] = {
-	CTRL_BTN_UP_PIN, 		// LEN
-	CTRL_BTN_DOWN_PIN, 	// XUONG
-	CTRL_BTN_LEFT_PIN, 	// TRAI
+	CTRL_BTN_UP_PIN,	// LEN
+	CTRL_BTN_DOWN_PIN,	// XUONG
+	CTRL_BTN_LEFT_PIN,	// TRAI
 	CTRL_BTN_RIGHT_PIN, // PHAI
 };
 
@@ -24,8 +24,7 @@ typedef struct __attribute__((packed))
 
 static const PinDef_t gamePins[GAME_BTN_COUNT] = {
 	{START_BTN_PORT, START_BTN_PIN},
-	{RST_BTN_PORT, RST_BTN_PIN}
-};
+	{RST_BTN_PORT, RST_BTN_PIN}};
 
 static uint8_t gamePrev[GAME_BTN_COUNT];
 static uint8_t gameCurr[GAME_BTN_COUNT];
@@ -59,13 +58,13 @@ static _Bool Ctrl_Pressed(CtrlBtn_e btn)
 {
 	uint8_t reading = Read_Pin(CTRL_BTN_PORT, ctrlPins[btn]);
 	_Bool ret = 0;
-	
+
 	if (reading != ctrlCurr[btn])
 	{
 		ctrlTstamp[btn] = millis();
 		ctrlCurr[btn] = reading;
 	}
-	
+
 	if (millis() - ctrlTstamp[btn] > TIME_DEBOUNCE)
 	{
 		if (ctrlPrev[btn] != ctrlCurr[btn])
@@ -91,25 +90,25 @@ static void Game_Init(void)
 		GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IPU;
 		GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 		GPIO_Init(gamePins[i].Port, &GPIO_InitStruct);
-		
+
 		uint8_t readPin = Read_Pin(gamePins[i].Port, gamePins[i].Pin);
 		gamePrev[i] = readPin;
 		gameCurr[i] = readPin;
 		gameTstamp[i] = 0;
-	} 
+	}
 }
 
 static _Bool Game_Pressed(GameBtn_e gbtn)
 {
 	uint8_t reading = Read_Pin(gamePins[gbtn].Port, gamePins[gbtn].Pin);
 	_Bool ret = 0;
-	
+
 	if (reading != gameCurr[gbtn])
 	{
 		gameTstamp[gbtn] = millis();
 		gameCurr[gbtn] = reading;
 	}
-	
+
 	if (millis() - gameTstamp[gbtn] > TIME_DEBOUNCE)
 	{
 		if (gamePrev[gbtn] != gameCurr[gbtn])
@@ -124,14 +123,13 @@ static _Bool Game_Pressed(GameBtn_e gbtn)
 	return ret;
 }
 
-
 void Button_BasicInit(void) __attribute__((constructor));
 
 void Button_BasicInit(void)
 {
 	button.CtrlInit = Ctrl_Init;
 	button.CtrlPressed = Ctrl_Pressed;
-	
+
 	button.GameInit = Game_Init;
 	button.GamePressed = Game_Pressed;
 }

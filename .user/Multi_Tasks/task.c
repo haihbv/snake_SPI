@@ -16,13 +16,13 @@ void ButtonTask(void)
 	{
 		if (button.GamePressed(GAME_BTN_START))
 		{
-			UI_ClearToGameBg();
+			ui.ClearToGameBg();
 			snake.Reset();
 			gameState = GAME_RUNNING;
 		}
 		return;
 	}
-	
+
 	// <2. Control khi dang choi>
 	if (gameState == GAME_RUNNING)
 	{
@@ -43,32 +43,32 @@ void ButtonTask(void)
 			snake.Direction(SNAKE_RIGHT);
 		}
 	}
-	
+
 	// <3. RESET khi game OVER -> quay lai man hinh cho>
 	if (gameState == GAME_OVER)
 	{
-		if (button.GamePressed(GAME_BTN_RESET)) 
+		if (button.GamePressed(GAME_BTN_RESET))
 		{
 			gameState = GAME_WAIT_START;
-			UI_ShowStartScreen();
-    }
+			ui.ShowStartScreen();
+		}
 	}
 }
 void FlushSnakeTask(void)
 {
 	if (gameState == GAME_WAIT_START)
 	{
-		UI_UpdateStartBlink();
+		ui.UpdateStartBlink();
 		return;
 	}
-	
+
 	if (gameState == GAME_RUNNING)
 	{
 		snake.Update();
 		snake.Draw();
 		return;
 	}
-	
+
 	if (gameState == GAME_OVER)
 	{
 		snake.Draw();
@@ -82,17 +82,16 @@ void TaskFunction(void)
 	ButtonTaskStruct.TaskHandler = ButtonTask;
 
 	SnakeTaskStruct.LastTick = 0;
-	SnakeTaskStruct.Period = SnakeSpeed(100);
+	SnakeTaskStruct.Period = SnakeSpeed(200);
 	SnakeTaskStruct.TaskHandler = FlushSnakeTask;
-	
+
 	gameState = GAME_WAIT_START;
-	UI_ShowStartScreen();
+	ui.ShowStartScreen();
 }
 
 static Task_t *TaskList[] = {
 	&ButtonTaskStruct,
-	&SnakeTaskStruct
-};
+	&SnakeTaskStruct};
 
 #define SIZE_TASK (sizeof(TaskList) / sizeof(Task_t *))
 

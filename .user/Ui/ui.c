@@ -3,6 +3,12 @@
 #include "fonts.h"
 #include "delay.h"
 #include <string.h>
+/*
+ * @brief RGB 565
+ * https://github.com/newdigate/rgb565_colors
+ */
+
+UI_Driver_t ui;
 
 #ifndef UI_FONT_TITLE
 #define UI_FONT_TITLE Font_11x18
@@ -30,15 +36,13 @@ static void Text_Center(uint16_t y, const char *str, Font_Define_t f, uint16_t f
 
 static void Frame(uint16_t color)
 {
-	st7735_DrawHorizontal_Line(0, 0, ST7735_WIDTH, color);
-	st7735_DrawHorizontal_Line(0, ST7735_HEIGHT - 1, ST7735_WIDTH, color);
-	st7735_DrawVerical_Line(0, 0, ST7735_HEIGHT, color);
-	st7735_DrawVerical_Line(ST7735_WIDTH - 1, 0, ST7735_HEIGHT, color);
+	lcd.DrawHLine(0, 0, ST7735_WIDTH, color);
+	lcd.DrawHLine(0, ST7735_HEIGHT - 1, ST7735_WIDTH, color);
+	lcd.DrawVLine(0, 0, ST7735_HEIGHT, color);
+	lcd.DrawVLine(ST7735_WIDTH - 1, 0, ST7735_HEIGHT, color);
 }
 
-static void Text_Center_Highlight(uint16_t y,
-								  const char *left, const char *mid, const char *right,
-								  Font_Define_t f, uint16_t fg, uint16_t midColor, uint16_t bg)
+static void Text_Center_Highlight(uint16_t y, const char *left, const char *mid, const char *right, Font_Define_t f, uint16_t fg, uint16_t midColor, uint16_t bg)
 {
 	uint16_t total_chars = (uint16_t)(strlen(left) + strlen(mid) + strlen(right));
 	uint16_t total_px = total_chars * f.width;
@@ -59,8 +63,7 @@ void UI_ShowStartScreen(void)
 	Frame(GAME_ACCENT_COLOR);
 
 	Text_Center(20, "S N A K E", UI_FONT_TITLE, GAME_TITLE_COLOR, GAME_BG_COLOR);
-	Text_Center_Highlight(48, "Press ", "START", " to enter", Font_6x8,
-						  GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
+	Text_Center_Highlight(48, "Press ", "START", " to enter", Font_6x8, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
 	Text_Center(62, "Game", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_BG_COLOR);
 
 	blinkTs = millis();
@@ -88,4 +91,16 @@ void UI_UpdateStartBlink(void)
 void UI_ClearToGameBg(void)
 {
 	lcd.FillScreen_Fast(GAME_BG_COLOR);
+}
+
+/******************************************
+ * UI Driver
+ ******************************************/
+void UI_AutoInit(void) __attribute__((constructor));
+
+void UI_AutoInit(void)
+{
+	ui.ShowStartScreen = UI_ShowStartScreen;
+	ui.ClearToGameBg = UI_ClearToGameBg;
+	ui.UpdateStartBlink = UI_UpdateStartBlink;
 }

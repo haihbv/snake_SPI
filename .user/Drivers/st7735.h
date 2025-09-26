@@ -42,6 +42,9 @@ typedef struct
     void (*PutString)(uint8_t xPos, uint8_t yPos, const char *str, Font_Define_t f, uint16_t color, uint16_t background);
     void (*Rectangle)(uint8_t xPos, uint8_t yPos, uint8_t weight, uint8_t height, uint16_t color);
     void (*Circle)(uint8_t xPos, uint8_t yPos, uint8_t radius, uint16_t color);
+		void (*CricleInBox)(uint8_t cx, uint8_t cy, uint8_t r, uint8_t bx0, uint8_t by0, uint8_t bx1, uint8_t by1, uint16_t color);
+		void (*DrawHLine)(uint8_t xPos, uint8_t yPos, uint8_t weight, uint16_t color);
+		void (*DrawVLine)(uint8_t xPos, uint8_t yPos, uint8_t height, uint16_t color);
     void (*Invert)(_Bool invert);
     void (*Bitmap)(uint8_t xPos, uint8_t yPos, uint8_t weight, uint8_t height, const uint16_t *data);
 } st7735_Driver_t;

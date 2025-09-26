@@ -58,7 +58,7 @@ extern Btn_Driver_t button;
 #endif /* START_BIN_PORT */
 
 
-#ifndef RST_BIN_PORT
+#ifndef RST_BTN_PORT
 #define RST_BTN_PORT     GPIOA
 #define RST_BTN_PIN      GPIO_Pin_8
 #endif /* RST_BIN_PORT */
