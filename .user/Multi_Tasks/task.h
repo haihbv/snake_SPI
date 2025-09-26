@@ -9,8 +9,8 @@ extern "C" {
 
 typedef struct
 {
-	uint32_t LastTick;      	// <Thoi diem chay lan truoc>
-	uint32_t Period;         	// <Chu ky chay cua cong viec>
+	uint32_t LastTick;      		// <Thoi diem chay lan truoc>
+	uint32_t Period;         		// <Chu ky chay cua cong viec>
 	void (*TaskHandler)(void);	// <Con tro den ham xu ly cong viec - Callback>
 } Task_t;
 
@@ -19,7 +19,6 @@ extern Task_t ButtonTaskStruct;
 extern Task_t SnakeTaskStruct;
 
 /* Ham xu ly tung Task */
-uint16_t SnakeSpeed(uint16_t speed);
 void ButtonTask(void);
 void FlushSnakeTask(void);
 void TaskFunction(void);

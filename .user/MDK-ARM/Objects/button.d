@@ -1,4 +1,4 @@
-./objects/button.o: ..\Drivers\button.c ..\Drivers\button.h \
+./objects/button.o: ..\Multi_Tasks\button.c ..\Multi_Tasks\button.h \
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include\stm32f10x.h \
   RTE\___snakeVN\RTE_Components.h \
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h \

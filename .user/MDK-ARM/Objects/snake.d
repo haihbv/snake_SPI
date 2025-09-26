@@ -1,4 +1,4 @@
-./objects/snake.o: ..\Drivers\snake.c ..\Drivers\snake.h \
+./objects/snake.o: ..\Multi_Tasks\snake.c ..\Multi_Tasks\snake.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h ..\Drivers\st7735.h \
   ..\Drivers\spi.h \
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include\stm32f10x.h \
@@ -16,5 +16,6 @@
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\stm32f10x_rcc.h \
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\stm32f10x_spi.h \
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\misc.h \
-  ..\Drivers\gpio.h ..\Drivers\fonts.h \
+  ..\Drivers\gpio.h ..\Drivers\fonts.h ..\Drivers\delay.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h

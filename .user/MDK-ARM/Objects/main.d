@@ -18,5 +18,5 @@
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\misc.h \
   ..\Drivers\gpio.h ..\Drivers\delay.h ..\Drivers\spi.h \
   ..\Drivers\gpio.h ..\Drivers\st7735.h ..\Drivers\spi.h \
-  ..\Drivers\fonts.h ..\Drivers\snake.h ..\Drivers\button.h \
-  ..\Drivers\task.h ..\Cores\main.h
+  ..\Drivers\fonts.h ..\Multi_Tasks\snake.h ..\Multi_Tasks\button.h \
+  ..\Multi_Tasks\task.h ..\Cores\main.h

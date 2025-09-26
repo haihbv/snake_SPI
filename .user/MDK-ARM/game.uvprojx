@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\Cores;..\Drivers;..\Drivers\Bitmap</IncludePath>
+              <IncludePath>..\Cores;..\Drivers;..\Drivers\Bitmap;..\Multi_Tasks;..\Ui</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -399,11 +399,6 @@
               <FilePath>..\Drivers\delay.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\button.c</FilePath>
-            </File>
-            <File>
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\gpio.c</FilePath>
@@ -418,20 +413,25 @@
               <FileType>1</FileType>
               <FilePath>..\Drivers\st7735.c</FilePath>
             </File>
-            <File>
-              <FileName>snake.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\snake.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Multi</GroupName>
+          <GroupName>Multi_Tasks</GroupName>
           <Files>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Multi_Tasks\button.c</FilePath>
+            </File>
+            <File>
+              <FileName>snake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Multi_Tasks\snake.c</FilePath>
+            </File>
             <File>
               <FileName>task.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Drivers\task.c</FilePath>
+              <FilePath>..\Multi_Tasks\task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -443,10 +443,15 @@
               <FileType>1</FileType>
               <FilePath>..\Drivers\fonts.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Ui</GroupName>
+          <Files>
             <File>
-              <FileName>bitmap.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Drivers\Bitmap\bitmap.h</FilePath>
+              <FileName>ui.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Ui\ui.c</FilePath>
             </File>
           </Files>
         </Group>

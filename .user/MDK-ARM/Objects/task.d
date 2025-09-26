@@ -1,5 +1,5 @@
-./objects/task.o: ..\Drivers\task.c ..\Drivers\task.h ..\Cores\main.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+./objects/task.o: ..\Multi_Tasks\task.c ..\Multi_Tasks\task.h \
+  ..\Cores\main.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include\stm32f10x.h \
   RTE\___snakeVN\RTE_Components.h \
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h \
@@ -18,4 +18,5 @@
   C:\Users\Adminstrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\misc.h \
   ..\Drivers\gpio.h ..\Drivers\delay.h ..\Drivers\spi.h \
   ..\Drivers\gpio.h ..\Drivers\st7735.h ..\Drivers\spi.h \
-  ..\Drivers\fonts.h ..\Drivers\snake.h ..\Drivers\button.h
+  ..\Drivers\fonts.h ..\Multi_Tasks\snake.h ..\Multi_Tasks\button.h \
+  ..\Ui\ui.h

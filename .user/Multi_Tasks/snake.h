@@ -22,6 +22,7 @@ typedef enum
 
 typedef enum 
 {
+	GAME_WAIT_START,
   GAME_RUNNING,
   GAME_OVER
 } GameState_e;

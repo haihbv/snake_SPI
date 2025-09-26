@@ -1,5 +1,7 @@
 #include "snake.h"
 #include "st7735.h"
+#include "delay.h"
+#include <string.h>
 #include <stdlib.h>
 
 Snake_Driver_t snake;
@@ -11,17 +13,29 @@ static Point_t food;
 static Point_t tail;
 GameState_e gameState;
 
+#define GRID_W  (ST7735_WIDTH  / BLOCK_SIZE)
+#define GRID_H  (ST7735_HEIGHT / BLOCK_SIZE)
+#define CELL(x) ((x) * BLOCK_SIZE)
+
+static uint8_t s_rng_seeded = 0;
+
+static void Snake_Random_Food(void);
+static inline void draw_food_cell(int fx, int fy, uint16_t color);
+
 void Snake_Init(void)
 {
+	if (s_rng_seeded == 0)
+	{
+		srand(millis());
+		s_rng_seeded = 1;
+	}
+	
 	snake_length = 3;
-	snakeBody[0].x = 5;
-	snakeBody[0].y = 5;
-	snakeBody[1].x = 4;
-	snakeBody[1].y = 5;
-	snakeBody[2].x = 3;
-	snakeBody[2].y = 5;
-
+	snakeBody[0] = (Point_t){5, 5};
+	snakeBody[1] = (Point_t){4, 5};
+	snakeBody[2] = (Point_t){3, 5};
 	direction = SNAKE_RIGHT;
+	
 	gameState = GAME_RUNNING;
 
 	/* Random moi khi start game */
@@ -30,27 +44,20 @@ void Snake_Init(void)
 	food.x = rand() % x_max;
 	food.y = rand() % y_max;
 
-	st7735_FillScreen_Fast(BLACK);
-
 	/* Ve snake ban dau */
 	for (int i = 0; i < snake_length; i++)
 	{
-		if (i == 0)
-		{
-			st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, GREEN);
-		}
-		else
-		{
-			st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, YELLOW);
-		}
+		uint16_t color = (i == 0) ? GREEN : YELLOW;
+		st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, color);
 	}
-
 	/* Ve food */
 	// st7735_FillRect((uint8_t)food.x * BLOCK_SIZE, (uint8_t)food.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, RED);
-	st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, BLOCK_SIZE / 2, RED);
+	draw_food_cell(food.x, food.y, RED);
+	// st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, radius, RED);
 }
 void Snake_SetDirection(SnakeDirection_e dir)
 {
+	/* Chan quay dau 180° */
 	if ((dir == SNAKE_UP && direction == SNAKE_DOWN) || (dir == SNAKE_DOWN && direction == SNAKE_UP) || (dir == SNAKE_LEFT && direction == SNAKE_RIGHT) || (dir == SNAKE_RIGHT && direction == SNAKE_LEFT))
 	{
 		return;
@@ -79,10 +86,22 @@ static void Snake_Random_Food(void)
 			}
 		}
 	}
+	draw_food_cell(food.x, food.y, RED);
+}
 
-	// ve food theo pos moi
-	// st7735_FillRect((uint8_t)food.x * BLOCK_SIZE, (uint8_t)food.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, RED);
-	st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, BLOCK_SIZE / 2, RED);
+static inline void draw_food_cell(int fx, int fy, uint16_t color)
+{
+	const uint8_t cell_x0 = (uint8_t)CELL(fx);
+  const uint8_t cell_y0 = (uint8_t)CELL(fy);
+  const uint8_t cell_x1 = cell_x0 + BLOCK_SIZE - 1;
+  const uint8_t cell_y1 = cell_y0 + BLOCK_SIZE - 1;
+	
+	const uint8_t cx = cell_x0 + BLOCK_SIZE / 2;
+  const uint8_t cy = cell_y0 + BLOCK_SIZE / 2;
+	
+	uint8_t r = BLOCK_SIZE / 2;
+	if (r > 0) r -= 1;
+	st7735_FillCircleInBox(cx, cy, r, cell_x0, cell_y0, cell_x1, cell_y1, color);
 }
 
 void Snake_Update(void)
@@ -116,33 +135,29 @@ void Snake_Update(void)
 		break;
 	}
 
-	/* wrapp */
-	int16_t x_max = ST7735_WIDTH / BLOCK_SIZE;
-	int16_t y_max = ST7735_HEIGHT / BLOCK_SIZE;
-
+	/* wrapp theo bien */
 	if (x_new < 0)
 	{
-		x_new = x_max - 1;
+		x_new = GRID_W - 1;
 	}
-	else if (x_new >= x_max)
+	else if (x_new >= GRID_W)
 	{
 		x_new = 0;
 	}
-
 	if (y_new < 0)
 	{
-		y_new = y_max - 1;
+		y_new = GRID_H - 1;
 	}
-	else if (y_new >= y_max)
+	else if (y_new >= GRID_H)
 	{
 		y_new = 0;
 	}
-
+	
 	/* update snake head*/
 	snakeBody[0].x = (uint8_t)x_new;
 	snakeBody[0].y = (uint8_t)y_new;
 
-	/* can vao duoi - game over */
+	/* tu can -> game over */
 	for (int i = 1; i < snake_length; i++)
 	{
 		if (snakeBody[0].x == snakeBody[i].x && snakeBody[0].y == snakeBody[i].y)
@@ -152,7 +167,7 @@ void Snake_Update(void)
 		}
 	}
 
-	/* an thuc an */
+	/* an food */
 	if (snakeBody[0].x == food.x && snakeBody[0].y == food.y)
 	{
 		if (snake_length < SNAKE_MAX_LEN)
@@ -166,36 +181,22 @@ void Snake_Update(void)
 
 void Snake_Draw(void)
 {
-	// st7735_FillScreen_Fast(BLACK);
-
 	if (gameState == GAME_OVER)
 	{
 		st7735_PutString((ST7735_WIDTH - 9 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "GAME OVER", Font_11x18, WHITE, BLACK);
 		return;
 	}
 
-	/* Version 1.0
-	<ve food>
-	st7735_FillRect((uint8_t)(food.x * BLOCK_SIZE), (uint8_t)(food.y * BLOCK_SIZE), BLOCK_SIZE, BLOCK_SIZE, RED);
-
-	<ve ran>
-	for (int i = 0; i < snake_length; i++)
-	{
-		st7735_FillRect((uint8_t)(snakeBody[i].x * BLOCK_SIZE), (uint8_t)(snakeBody[i].y * BLOCK_SIZE), BLOCK_SIZE, BLOCK_SIZE, GREEN);
-	}
-	*/
-
-	/* <Version 2.0> */
-	/*
-	 * @brief ko dung FillScreen_Fast moi lan Draw nua
-	 */
 	if (!(snakeBody[0].x == food.x && snakeBody[0].y == food.y))
 	{
 		st7735_FillRect((uint8_t)tail.x * BLOCK_SIZE, (uint8_t)tail.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, BLACK);
 	}
 
 	/* ve lai food */
-	st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, BLOCK_SIZE / 2, RED);
+	if (!(snakeBody[0].x == food.x && snakeBody[0].y == food.y))
+	{
+		draw_food_cell(food.x, food.y, RED);
+	}
 
 	/* ve lai than */
 	if (snake_length > 1)
@@ -209,29 +210,11 @@ void Snake_Draw(void)
 
 void Snake_Reset(void)
 {
-//	snake_length = 3;
-//	snakeBody[0].x = 5;
-//	snakeBody[0].y = 5;
-//	snakeBody[1].x = 4;
-//	snakeBody[1].y = 5;
-//	snakeBody[2].x = 3;
-//	snakeBody[2].y = 5;
-
-//	direction = SNAKE_RIGHT;
-//	gameState = GAME_RUNNING;
-
-//	int16_t x_max = ST7735_WIDTH / BLOCK_SIZE;
-//	int16_t y_max = ST7735_HEIGHT / BLOCK_SIZE;
-//	food.x = rand() % x_max;
-//	food.y = rand() % y_max;
-
-//	st7735_FillScreen_Fast(BLACK);
-	
 	Snake_Init();
 }
 
 /**********************************************
- * Snake
+ * Snake driver
  **********************************************/
 void Game_SnakeInit(void) __attribute__((constructor));
 

@@ -1,0 +1,24 @@
+#pragma once
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
+typedef struct
+{
+	void (*ShowStartSreen)(void);
+	void (*UpdateStartBlink)(void);
+	void (*ClearToGameBg)(void);
+} UI_Driver_t;
+
+extern UI_Driver_t ui;
+          
+void UI_ShowStartScreen(void);      
+void UI_UpdateStartBlink(void);     
+void UI_ClearToGameBg(void);        
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+

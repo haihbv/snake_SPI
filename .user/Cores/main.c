@@ -8,7 +8,8 @@ void Init(void)
 	spi1.Init();
 	lcd.Init();
 	lcd.Invert(0);
-	button.Init();
+	button.CtrlInit();
+	button.GameInit();
 	snake.Init();
 
 	TaskFunction();
