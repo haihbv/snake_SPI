@@ -19,6 +19,7 @@ extern Task_t ButtonTaskStruct;
 extern Task_t SnakeTaskStruct;
 
 /* Ham xu ly tung Task */
+uint16_t SnakeSpeed(uint16_t speed);
 void ButtonTask(void);
 void FlushSnakeTask(void);
 void TaskFunction(void);

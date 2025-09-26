@@ -3,6 +3,12 @@
 Task_t ButtonTaskStruct;
 Task_t SnakeTaskStruct;
 
+uint16_t SnakeSpeed(uint16_t speed)
+{
+	return speed;
+}
+
+
 void ButtonTask(void)
 {
 	if (button.IsPressed(BTN_UP))
@@ -21,7 +27,8 @@ void ButtonTask(void)
 	{
 		snake.Direction(SNAKE_RIGHT);
 	}
-	if (gameState == GAME_OVER && button.IsPressed(BTN_RESET))
+	
+	if (button.ResetGame() && gameState == GAME_OVER)
 	{
 		Snake_Reset();
 	}
@@ -39,7 +46,7 @@ void TaskFunction(void)
 	ButtonTaskStruct.TaskHandler = ButtonTask;
 
 	SnakeTaskStruct.LastTick = 0;
-	SnakeTaskStruct.Period = 200;
+	SnakeTaskStruct.Period = SnakeSpeed(100);
 	SnakeTaskStruct.TaskHandler = FlushSnakeTask;
 }
 

@@ -209,23 +209,25 @@ void Snake_Draw(void)
 
 void Snake_Reset(void)
 {
-	snake_length = 3;
-	snakeBody[0].x = 5;
-	snakeBody[0].y = 5;
-	snakeBody[1].x = 4;
-	snakeBody[1].y = 5;
-	snakeBody[2].x = 3;
-	snakeBody[2].y = 5;
+//	snake_length = 3;
+//	snakeBody[0].x = 5;
+//	snakeBody[0].y = 5;
+//	snakeBody[1].x = 4;
+//	snakeBody[1].y = 5;
+//	snakeBody[2].x = 3;
+//	snakeBody[2].y = 5;
 
-	direction = SNAKE_RIGHT;
-	gameState = GAME_RUNNING;
+//	direction = SNAKE_RIGHT;
+//	gameState = GAME_RUNNING;
 
-	int16_t x_max = ST7735_WIDTH / BLOCK_SIZE;
-	int16_t y_max = ST7735_HEIGHT / BLOCK_SIZE;
-	food.x = rand() % x_max;
-	food.y = rand() % y_max;
+//	int16_t x_max = ST7735_WIDTH / BLOCK_SIZE;
+//	int16_t y_max = ST7735_HEIGHT / BLOCK_SIZE;
+//	food.x = rand() % x_max;
+//	food.y = rand() % y_max;
 
-	st7735_FillScreen_Fast(BLACK);
+//	st7735_FillScreen_Fast(BLACK);
+	
+	Snake_Init();
 }
 
 /**********************************************

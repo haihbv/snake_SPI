@@ -40,17 +40,34 @@ Section Cross References
     button.o(.text.Button_IsPressed) refers to button.o(.text.millis) for millis
     button.o(.text.Button_IsPressed) refers to button.o(.bss.btn_last_state) for btn_last_state
     button.o(.ARM.exidx.text.Button_IsPressed) refers to button.o(.text.Button_IsPressed) for [Anonymous Symbol]
-    button.o(.text.Button_Read) refers to button.o(.rodata.btnPins) for btnPins
     button.o(.text.Button_Read) refers to stm32f10x_gpio.o(.text.GPIO_ReadInputDataBit) for GPIO_ReadInputDataBit
     button.o(.ARM.exidx.text.Button_Read) refers to button.o(.text.Button_Read) for [Anonymous Symbol]
     button.o(.text.millis) refers to delay.o(.bss.tickMs) for tickMs
     button.o(.ARM.exidx.text.millis) refers to button.o(.text.millis) for [Anonymous Symbol]
+    button.o(.text.Button_Reset_Init) refers to stm32f10x_rcc.o(.text.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
+    button.o(.text.Button_Reset_Init) refers to stm32f10x_gpio.o(.text.GPIO_Init) for GPIO_Init
+    button.o(.text.Button_Reset_Init) refers to stm32f10x_gpio.o(.text.GPIO_ReadInputDataBit) for GPIO_ReadInputDataBit
+    button.o(.text.Button_Reset_Init) refers to button.o(.data.btn_game_prev) for btn_game_prev
+    button.o(.text.Button_Reset_Init) refers to button.o(.data.btn_game_curr) for btn_game_curr
+    button.o(.ARM.exidx.text.Button_Reset_Init) refers to button.o(.text.Button_Reset_Init) for [Anonymous Symbol]
+    button.o(.text.Button_IsResetPressed) refers to button.o(.text.Button_Read_RstGame) for Button_Read_RstGame
+    button.o(.text.Button_IsResetPressed) refers to button.o(.data.btn_game_curr) for btn_game_curr
+    button.o(.text.Button_IsResetPressed) refers to button.o(.bss.btn_game_debounce) for btn_game_debounce
+    button.o(.text.Button_IsResetPressed) refers to button.o(.text.millis) for millis
+    button.o(.text.Button_IsResetPressed) refers to button.o(.data.btn_game_prev) for btn_game_prev
+    button.o(.ARM.exidx.text.Button_IsResetPressed) refers to button.o(.text.Button_IsResetPressed) for [Anonymous Symbol]
+    button.o(.text.Button_Read_RstGame) refers to stm32f10x_gpio.o(.text.GPIO_ReadInputDataBit) for GPIO_ReadInputDataBit
+    button.o(.ARM.exidx.text.Button_Read_RstGame) refers to button.o(.text.Button_Read_RstGame) for [Anonymous Symbol]
     button.o(.text.Button_BasicInit) refers to button.o(.data.button) for button
     button.o(.text.Button_BasicInit) refers to button.o(.text.Button_Init) for Button_Init
     button.o(.text.Button_BasicInit) refers to button.o(.text.Button_IsPressed) for Button_IsPressed
+    button.o(.text.Button_BasicInit) refers to button.o(.text.Button_Reset_Init) for Button_Reset_Init
+    button.o(.text.Button_BasicInit) refers to button.o(.text.Button_IsResetPressed) for Button_IsResetPressed
     button.o(.ARM.exidx.text.Button_BasicInit) refers to button.o(.text.Button_BasicInit) for [Anonymous Symbol]
     button.o(.data.button) refers to button.o(.text.Button_Init) for Button_Init
     button.o(.data.button) refers to button.o(.text.Button_IsPressed) for Button_IsPressed
+    button.o(.data.button) refers to button.o(.text.Button_Reset_Init) for Button_Reset_Init
+    button.o(.data.button) refers to button.o(.text.Button_IsResetPressed) for Button_IsResetPressed
     gpio.o(.text.GPIOx_Init) refers to stm32f10x_rcc.o(.text.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
     gpio.o(.text.GPIOx_Init) refers to stm32f10x_gpio.o(.text.GPIO_Init) for GPIO_Init
     gpio.o(.ARM.exidx.text.GPIOx_Init) refers to gpio.o(.text.GPIOx_Init) for [Anonymous Symbol]
@@ -237,14 +254,7 @@ Section Cross References
     snake.o(.text.Snake_Draw) refers to st7735.o(.text.st7735_FillCircle) for st7735_FillCircle
     snake.o(.text.Snake_Draw) refers to snake.o(.bss.snake_length) for snake_length
     snake.o(.ARM.exidx.text.Snake_Draw) refers to snake.o(.text.Snake_Draw) for [Anonymous Symbol]
-    snake.o(.text.Snake_Reset) refers to snake.o(.bss.snake_length) for snake_length
-    snake.o(.text.Snake_Reset) refers to snake.o(.bss.snakeBody) for snakeBody
-    snake.o(.text.Snake_Reset) refers to snake.o(.bss.direction) for direction
-    snake.o(.text.Snake_Reset) refers to snake.o(.bss.gameState) for gameState
-    snake.o(.text.Snake_Reset) refers to rand.o(.emb_text) for rand
-    snake.o(.text.Snake_Reset) refers to snake.o(.bss.food.0) for food.0
-    snake.o(.text.Snake_Reset) refers to snake.o(.bss.food.1) for food.1
-    snake.o(.text.Snake_Reset) refers to st7735.o(.text.st7735_FillScreen_Fast) for st7735_FillScreen_Fast
+    snake.o(.text.Snake_Reset) refers to snake.o(.text.Snake_Init) for Snake_Init
     snake.o(.ARM.exidx.text.Snake_Reset) refers to snake.o(.text.Snake_Reset) for [Anonymous Symbol]
     snake.o(.text.Game_SnakeInit) refers to snake.o(.data.snake) for snake
     snake.o(.text.Game_SnakeInit) refers to snake.o(.text.Snake_Init) for Snake_Init
@@ -258,6 +268,7 @@ Section Cross References
     snake.o(.data.snake) refers to snake.o(.text.Snake_Draw) for Snake_Draw
     snake.o(.data.snake) refers to snake.o(.text.Snake_SetDirection) for Snake_SetDirection
     snake.o(.data.snake) refers to snake.o(.text.Snake_Reset) for Snake_Reset
+    task.o(.ARM.exidx.text.SnakeSpeed) refers to task.o(.text.SnakeSpeed) for [Anonymous Symbol]
     task.o(.text.ButtonTask) refers to button.o(.data.button) for button
     task.o(.text.ButtonTask) refers to snake.o(.data.snake) for snake
     task.o(.text.ButtonTask) refers to snake.o(.bss.gameState) for gameState
@@ -532,7 +543,10 @@ Removing Unused input sections from the image.
     Removing button.o(.ARM.exidx.text.Button_IsPressed), (8 bytes).
     Removing button.o(.ARM.exidx.text.Button_Read), (8 bytes).
     Removing button.o(.ARM.exidx.text.millis), (8 bytes).
-    Removing button.o(.text.Button_BasicInit), (30 bytes).
+    Removing button.o(.ARM.exidx.text.Button_Reset_Init), (8 bytes).
+    Removing button.o(.ARM.exidx.text.Button_IsResetPressed), (8 bytes).
+    Removing button.o(.ARM.exidx.text.Button_Read_RstGame), (8 bytes).
+    Removing button.o(.text.Button_BasicInit), (46 bytes).
     Removing button.o(.ARM.exidx.text.Button_BasicInit), (8 bytes).
     Removing gpio.o(.text), (0 bytes).
     Removing gpio.o(.ARM.exidx.text.GPIOx_Init), (8 bytes).
@@ -584,6 +598,8 @@ Removing Unused input sections from the image.
     Removing snake.o(.text.Game_SnakeInit), (56 bytes).
     Removing snake.o(.ARM.exidx.text.Game_SnakeInit), (8 bytes).
     Removing task.o(.text), (0 bytes).
+    Removing task.o(.text.SnakeSpeed), (2 bytes).
+    Removing task.o(.ARM.exidx.text.SnakeSpeed), (8 bytes).
     Removing task.o(.ARM.exidx.text.ButtonTask), (8 bytes).
     Removing task.o(.ARM.exidx.text.FlushSnakeTask), (8 bytes).
     Removing task.o(.ARM.exidx.text.TaskFunction), (8 bytes).
@@ -783,7 +799,7 @@ Removing Unused input sections from the image.
     Removing system_stm32f10x.o(.data.SystemCoreClock), (4 bytes).
     Removing system_stm32f10x.o(.rodata.AHBPrescTable), (16 bytes).
 
-269 unused section(s) (total 8286 bytes) removed from the image.
+274 unused section(s) (total 8336 bytes) removed from the image.
 
 ==============================================================================
 
@@ -923,93 +939,102 @@ Image Symbol Table
     .text                                    0x080002aa   Section        0  indicate_semi.o(.text)
     .text                                    0x080002ac   Section        0  sys_exit.o(.text)
     [Anonymous Symbol]                       0x080002b8   Section        0  task.o(.text.ButtonTask)
-    [Anonymous Symbol]                       0x08000324   Section        0  button.o(.text.Button_Init)
-    [Anonymous Symbol]                       0x08000368   Section        0  button.o(.text.Button_IsPressed)
-    Button_Read                              0x080003c5   Thumb Code    34  button.o(.text.Button_Read)
-    [Anonymous Symbol]                       0x080003c4   Section        0  button.o(.text.Button_Read)
-    [Anonymous Symbol]                       0x080003e8   Section        0  delay.o(.text.DelayMs)
-    [Anonymous Symbol]                       0x08000400   Section        0  delay.o(.text.Delay_Init)
-    [Anonymous Symbol]                       0x08000420   Section        0  task.o(.text.FlushSnakeTask)
-    [Anonymous Symbol]                       0x08000434   Section        0  stm32f10x_gpio.o(.text.GPIO_Init)
-    [Anonymous Symbol]                       0x080004e4   Section        0  stm32f10x_gpio.o(.text.GPIO_ReadInputDataBit)
-    [Anonymous Symbol]                       0x080004f0   Section        0  stm32f10x_gpio.o(.text.GPIO_ResetBits)
-    [Anonymous Symbol]                       0x080004f4   Section        0  stm32f10x_gpio.o(.text.GPIO_SetBits)
-    [Anonymous Symbol]                       0x080004f8   Section        0  gpio.o(.text.GPIOx_Init)
-    [Anonymous Symbol]                       0x08000554   Section        0  main.o(.text.Init)
-    [Anonymous Symbol]                       0x080005a4   Section        0  main.o(.text.Loop)
-    [Anonymous Symbol]                       0x080005ac   Section        0  stm32f10x_rcc.o(.text.RCC_APB2PeriphClockCmd)
-    SetSysClock                              0x080005c5   Thumb Code     8  system_stm32f10x.o(.text.SetSysClock)
-    [Anonymous Symbol]                       0x080005c4   Section        0  system_stm32f10x.o(.text.SetSysClock)
-    SetSysClockTo72                          0x080005cd   Thumb Code   190  system_stm32f10x.o(.text.SetSysClockTo72)
-    [Anonymous Symbol]                       0x080005cc   Section        0  system_stm32f10x.o(.text.SetSysClockTo72)
-    [Anonymous Symbol]                       0x0800068c   Section        0  snake.o(.text.Snake_Draw)
-    [Anonymous Symbol]                       0x08000778   Section        0  snake.o(.text.Snake_Init)
-    Snake_Random_Food                        0x08000865   Thumb Code   158  snake.o(.text.Snake_Random_Food)
-    [Anonymous Symbol]                       0x08000864   Section        0  snake.o(.text.Snake_Random_Food)
-    [Anonymous Symbol]                       0x08000904   Section        0  snake.o(.text.Snake_Reset)
-    [Anonymous Symbol]                       0x08000990   Section        0  snake.o(.text.Snake_SetDirection)
-    [Anonymous Symbol]                       0x080009bc   Section        0  snake.o(.text.Snake_Update)
-    [Anonymous Symbol]                       0x08000abc   Section        0  delay.o(.text.SysTick_Handler)
-    [Anonymous Symbol]                       0x08000acc   Section        0  system_stm32f10x.o(.text.SystemInit)
-    [Anonymous Symbol]                       0x08000b24   Section        0  task.o(.text.TaskFunction)
-    [Anonymous Symbol]                       0x08000b50   Section        0  task.o(.text.WorkAssignment)
-    TaskList                                 0x08000b80   Number         0  task.o(.text.WorkAssignment)
-    [Anonymous Symbol]                       0x08000b88   Section        0  main.o(.text.main)
-    millis                                   0x08000b95   Thumb Code    12  delay.o(.text.millis)
-    [Anonymous Symbol]                       0x08000b94   Section        0  delay.o(.text.millis)
-    millis                                   0x08000ba1   Thumb Code    12  button.o(.text.millis)
-    [Anonymous Symbol]                       0x08000ba0   Section        0  button.o(.text.millis)
-    millis                                   0x08000bad   Thumb Code    12  task.o(.text.millis)
-    [Anonymous Symbol]                       0x08000bac   Section        0  task.o(.text.millis)
-    spi1_init                                0x08000bb9   Thumb Code   144  spi.o(.text.spi1_init)
-    [Anonymous Symbol]                       0x08000bb8   Section        0  spi.o(.text.spi1_init)
-    spi1_transfer                            0x08000c49   Thumb Code    32  spi.o(.text.spi1_transfer)
-    [Anonymous Symbol]                       0x08000c48   Section        0  spi.o(.text.spi1_transfer)
-    [Anonymous Symbol]                       0x08000c68   Section        0  spi.o(.text.spi_Master_Transmit)
-    [Anonymous Symbol]                       0x08000c88   Section        0  st7735.o(.text.st7735_BitMap)
-    [Anonymous Symbol]                       0x08000d24   Section        0  st7735.o(.text.st7735_Direction)
-    [Anonymous Symbol]                       0x08000d64   Section        0  st7735.o(.text.st7735_DrawPixel)
-    [Anonymous Symbol]                       0x08000db8   Section        0  st7735.o(.text.st7735_FillCircle)
-    [Anonymous Symbol]                       0x08000e3c   Section        0  st7735.o(.text.st7735_FillRect)
-    [Anonymous Symbol]                       0x08000ed8   Section        0  st7735.o(.text.st7735_FillScreen_Fast)
-    [Anonymous Symbol]                       0x08000f78   Section        0  st7735.o(.text.st7735_Init)
-    [Anonymous Symbol]                       0x08001020   Section        0  st7735.o(.text.st7735_InvertColors)
-    [Anonymous Symbol]                       0x0800104c   Section        0  st7735.o(.text.st7735_PutChar)
-    [Anonymous Symbol]                       0x080010d8   Section        0  st7735.o(.text.st7735_PutString)
-    [Anonymous Symbol]                       0x0800117c   Section        0  st7735.o(.text.st7735_SendCmd)
-    [Anonymous Symbol]                       0x080011b0   Section        0  st7735.o(.text.st7735_SendCmdList)
-    [Anonymous Symbol]                       0x080011f0   Section        0  st7735.o(.text.st7735_SendData)
-    [Anonymous Symbol]                       0x08001224   Section        0  st7735.o(.text.st7735_SetWindow)
-    Font11x18                                0x08001276   Data        3420  fonts.o(.rodata.Font11x18)
-    [Anonymous Symbol]                       0x08001276   Section        0  fonts.o(.rodata.Font11x18)
-    btnPins                                  0x08001fd8   Data          10  button.o(.rodata.btnPins)
-    [Anonymous Symbol]                       0x08001fd8   Section        0  button.o(.rodata.btnPins)
-    u8PanelCmdList                           0x08001fe2   Data          82  st7735.o(.rodata.u8PanelCmdList)
-    [Anonymous Symbol]                       0x08001fe2   Section        0  st7735.o(.rodata.u8PanelCmdList)
-    .bss                                     0x20000058   Section      228  rand.o(.bss)
-    .bss                                     0x2000013c   Section       96  libspace.o(.bss)
-    ST7735_HEIGHT                            0x200001a8   Data           1  st7735.o(.bss.ST7735_HEIGHT)
-    [Anonymous Symbol]                       0x200001a8   Section        0  st7735.o(.bss.ST7735_HEIGHT)
-    ST7735_WIDTH                             0x200001a9   Data           1  st7735.o(.bss.ST7735_WIDTH)
-    [Anonymous Symbol]                       0x200001a9   Section        0  st7735.o(.bss.ST7735_WIDTH)
-    btn_cur_state                            0x200001b8   Data           5  button.o(.bss.btn_cur_state)
-    [Anonymous Symbol]                       0x200001b8   Section        0  button.o(.bss.btn_cur_state)
-    btn_debounce_time                        0x200001c0   Data          20  button.o(.bss.btn_debounce_time)
-    [Anonymous Symbol]                       0x200001c0   Section        0  button.o(.bss.btn_debounce_time)
-    btn_last_state                           0x200001d4   Data           5  button.o(.bss.btn_last_state)
-    [Anonymous Symbol]                       0x200001d4   Section        0  button.o(.bss.btn_last_state)
-    direction                                0x200001d9   Data           1  snake.o(.bss.direction)
-    [Anonymous Symbol]                       0x200001d9   Section        0  snake.o(.bss.direction)
-    food.0                                   0x200001da   Data           2  snake.o(.bss.food.0)
-    [Anonymous Symbol]                       0x200001da   Section        0  snake.o(.bss.food.0)
-    food.1                                   0x200001dc   Data           2  snake.o(.bss.food.1)
-    [Anonymous Symbol]                       0x200001dc   Section        0  snake.o(.bss.food.1)
-    snakeBody                                0x200001e0   Data         400  snake.o(.bss.snakeBody)
-    [Anonymous Symbol]                       0x200001e0   Section        0  snake.o(.bss.snakeBody)
-    snake_length                             0x20000370   Data           1  snake.o(.bss.snake_length)
-    [Anonymous Symbol]                       0x20000370   Section        0  snake.o(.bss.snake_length)
-    tail                                     0x20000374   Data           4  snake.o(.bss.tail)
-    [Anonymous Symbol]                       0x20000374   Section        0  snake.o(.bss.tail)
+    [Anonymous Symbol]                       0x08000320   Section        0  button.o(.text.Button_Init)
+    [Anonymous Symbol]                       0x08000360   Section        0  button.o(.text.Button_IsPressed)
+    [Anonymous Symbol]                       0x080003bc   Section        0  button.o(.text.Button_IsResetPressed)
+    Button_Read                              0x0800040d   Thumb Code    36  button.o(.text.Button_Read)
+    [Anonymous Symbol]                       0x0800040c   Section        0  button.o(.text.Button_Read)
+    btnPins                                  0x08000428   Number         0  button.o(.text.Button_Read)
+    Button_Read_RstGame                      0x08000431   Thumb Code    26  button.o(.text.Button_Read_RstGame)
+    [Anonymous Symbol]                       0x08000430   Section        0  button.o(.text.Button_Read_RstGame)
+    [Anonymous Symbol]                       0x0800044c   Section        0  button.o(.text.Button_Reset_Init)
+    [Anonymous Symbol]                       0x08000494   Section        0  delay.o(.text.DelayMs)
+    [Anonymous Symbol]                       0x080004ac   Section        0  delay.o(.text.Delay_Init)
+    [Anonymous Symbol]                       0x080004cc   Section        0  task.o(.text.FlushSnakeTask)
+    [Anonymous Symbol]                       0x080004e0   Section        0  stm32f10x_gpio.o(.text.GPIO_Init)
+    [Anonymous Symbol]                       0x08000590   Section        0  stm32f10x_gpio.o(.text.GPIO_ReadInputDataBit)
+    [Anonymous Symbol]                       0x0800059c   Section        0  stm32f10x_gpio.o(.text.GPIO_ResetBits)
+    [Anonymous Symbol]                       0x080005a0   Section        0  stm32f10x_gpio.o(.text.GPIO_SetBits)
+    [Anonymous Symbol]                       0x080005a4   Section        0  gpio.o(.text.GPIOx_Init)
+    [Anonymous Symbol]                       0x08000600   Section        0  main.o(.text.Init)
+    [Anonymous Symbol]                       0x08000650   Section        0  main.o(.text.Loop)
+    [Anonymous Symbol]                       0x08000658   Section        0  stm32f10x_rcc.o(.text.RCC_APB2PeriphClockCmd)
+    SetSysClock                              0x08000671   Thumb Code     8  system_stm32f10x.o(.text.SetSysClock)
+    [Anonymous Symbol]                       0x08000670   Section        0  system_stm32f10x.o(.text.SetSysClock)
+    SetSysClockTo72                          0x08000679   Thumb Code   190  system_stm32f10x.o(.text.SetSysClockTo72)
+    [Anonymous Symbol]                       0x08000678   Section        0  system_stm32f10x.o(.text.SetSysClockTo72)
+    [Anonymous Symbol]                       0x08000738   Section        0  snake.o(.text.Snake_Draw)
+    [Anonymous Symbol]                       0x08000824   Section        0  snake.o(.text.Snake_Init)
+    Snake_Random_Food                        0x08000911   Thumb Code   158  snake.o(.text.Snake_Random_Food)
+    [Anonymous Symbol]                       0x08000910   Section        0  snake.o(.text.Snake_Random_Food)
+    [Anonymous Symbol]                       0x080009b0   Section        0  snake.o(.text.Snake_Reset)
+    [Anonymous Symbol]                       0x080009b8   Section        0  snake.o(.text.Snake_SetDirection)
+    [Anonymous Symbol]                       0x080009e4   Section        0  snake.o(.text.Snake_Update)
+    [Anonymous Symbol]                       0x08000ae4   Section        0  delay.o(.text.SysTick_Handler)
+    [Anonymous Symbol]                       0x08000af4   Section        0  system_stm32f10x.o(.text.SystemInit)
+    [Anonymous Symbol]                       0x08000b4c   Section        0  task.o(.text.TaskFunction)
+    [Anonymous Symbol]                       0x08000b78   Section        0  task.o(.text.WorkAssignment)
+    TaskList                                 0x08000ba8   Number         0  task.o(.text.WorkAssignment)
+    [Anonymous Symbol]                       0x08000bb0   Section        0  main.o(.text.main)
+    millis                                   0x08000bbd   Thumb Code    12  delay.o(.text.millis)
+    [Anonymous Symbol]                       0x08000bbc   Section        0  delay.o(.text.millis)
+    millis                                   0x08000bc9   Thumb Code    12  button.o(.text.millis)
+    [Anonymous Symbol]                       0x08000bc8   Section        0  button.o(.text.millis)
+    millis                                   0x08000bd5   Thumb Code    12  task.o(.text.millis)
+    [Anonymous Symbol]                       0x08000bd4   Section        0  task.o(.text.millis)
+    spi1_init                                0x08000be1   Thumb Code   144  spi.o(.text.spi1_init)
+    [Anonymous Symbol]                       0x08000be0   Section        0  spi.o(.text.spi1_init)
+    spi1_transfer                            0x08000c71   Thumb Code    32  spi.o(.text.spi1_transfer)
+    [Anonymous Symbol]                       0x08000c70   Section        0  spi.o(.text.spi1_transfer)
+    [Anonymous Symbol]                       0x08000c90   Section        0  spi.o(.text.spi_Master_Transmit)
+    [Anonymous Symbol]                       0x08000cb0   Section        0  st7735.o(.text.st7735_BitMap)
+    [Anonymous Symbol]                       0x08000d4c   Section        0  st7735.o(.text.st7735_Direction)
+    [Anonymous Symbol]                       0x08000d8c   Section        0  st7735.o(.text.st7735_DrawPixel)
+    [Anonymous Symbol]                       0x08000de0   Section        0  st7735.o(.text.st7735_FillCircle)
+    [Anonymous Symbol]                       0x08000e64   Section        0  st7735.o(.text.st7735_FillRect)
+    [Anonymous Symbol]                       0x08000f00   Section        0  st7735.o(.text.st7735_FillScreen_Fast)
+    [Anonymous Symbol]                       0x08000fa0   Section        0  st7735.o(.text.st7735_Init)
+    [Anonymous Symbol]                       0x08001048   Section        0  st7735.o(.text.st7735_InvertColors)
+    [Anonymous Symbol]                       0x08001074   Section        0  st7735.o(.text.st7735_PutChar)
+    [Anonymous Symbol]                       0x08001100   Section        0  st7735.o(.text.st7735_PutString)
+    [Anonymous Symbol]                       0x080011a4   Section        0  st7735.o(.text.st7735_SendCmd)
+    [Anonymous Symbol]                       0x080011d8   Section        0  st7735.o(.text.st7735_SendCmdList)
+    [Anonymous Symbol]                       0x08001218   Section        0  st7735.o(.text.st7735_SendData)
+    [Anonymous Symbol]                       0x0800124c   Section        0  st7735.o(.text.st7735_SetWindow)
+    Font11x18                                0x0800129e   Data        3420  fonts.o(.rodata.Font11x18)
+    [Anonymous Symbol]                       0x0800129e   Section        0  fonts.o(.rodata.Font11x18)
+    u8PanelCmdList                           0x08002000   Data          82  st7735.o(.rodata.u8PanelCmdList)
+    [Anonymous Symbol]                       0x08002000   Section        0  st7735.o(.rodata.u8PanelCmdList)
+    btn_game_curr                            0x20000000   Data           1  button.o(.data.btn_game_curr)
+    [Anonymous Symbol]                       0x20000000   Section        0  button.o(.data.btn_game_curr)
+    btn_game_prev                            0x20000001   Data           1  button.o(.data.btn_game_prev)
+    [Anonymous Symbol]                       0x20000001   Section        0  button.o(.data.btn_game_prev)
+    .bss                                     0x20000060   Section      228  rand.o(.bss)
+    .bss                                     0x20000144   Section       96  libspace.o(.bss)
+    ST7735_HEIGHT                            0x200001b0   Data           1  st7735.o(.bss.ST7735_HEIGHT)
+    [Anonymous Symbol]                       0x200001b0   Section        0  st7735.o(.bss.ST7735_HEIGHT)
+    ST7735_WIDTH                             0x200001b1   Data           1  st7735.o(.bss.ST7735_WIDTH)
+    [Anonymous Symbol]                       0x200001b1   Section        0  st7735.o(.bss.ST7735_WIDTH)
+    btn_cur_state                            0x200001c0   Data           4  button.o(.bss.btn_cur_state)
+    [Anonymous Symbol]                       0x200001c0   Section        0  button.o(.bss.btn_cur_state)
+    btn_debounce_time                        0x200001c4   Data          16  button.o(.bss.btn_debounce_time)
+    [Anonymous Symbol]                       0x200001c4   Section        0  button.o(.bss.btn_debounce_time)
+    btn_game_debounce                        0x200001d4   Data           4  button.o(.bss.btn_game_debounce)
+    [Anonymous Symbol]                       0x200001d4   Section        0  button.o(.bss.btn_game_debounce)
+    btn_last_state                           0x200001d8   Data           4  button.o(.bss.btn_last_state)
+    [Anonymous Symbol]                       0x200001d8   Section        0  button.o(.bss.btn_last_state)
+    direction                                0x200001dc   Data           1  snake.o(.bss.direction)
+    [Anonymous Symbol]                       0x200001dc   Section        0  snake.o(.bss.direction)
+    food.0                                   0x200001de   Data           2  snake.o(.bss.food.0)
+    [Anonymous Symbol]                       0x200001de   Section        0  snake.o(.bss.food.0)
+    food.1                                   0x200001e0   Data           2  snake.o(.bss.food.1)
+    [Anonymous Symbol]                       0x200001e0   Section        0  snake.o(.bss.food.1)
+    snakeBody                                0x200001e4   Data         400  snake.o(.bss.snakeBody)
+    [Anonymous Symbol]                       0x200001e4   Section        0  snake.o(.bss.snakeBody)
+    snake_length                             0x20000374   Data           1  snake.o(.bss.snake_length)
+    [Anonymous Symbol]                       0x20000374   Section        0  snake.o(.bss.snake_length)
+    tail                                     0x20000378   Data           4  snake.o(.bss.tail)
+    [Anonymous Symbol]                       0x20000378   Section        0  snake.o(.bss.tail)
     Heap_Mem                                 0x20000380   Data         512  startup_stm32f10x_md.o(HEAP)
     HEAP                                     0x20000380   Section      512  startup_stm32f10x_md.o(HEAP)
     Stack_Mem                                0x20000580   Data        1024  startup_stm32f10x_md.o(STACK)
@@ -1169,60 +1194,62 @@ Image Symbol Table
     __use_no_semihosting_swi                 0x080002a9   Thumb Code     2  use_no_semi.o(.text)
     __semihosting_library_function           0x080002ab   Thumb Code     0  indicate_semi.o(.text)
     _sys_exit                                0x080002ad   Thumb Code     8  sys_exit.o(.text)
-    ButtonTask                               0x080002b9   Thumb Code   106  task.o(.text.ButtonTask)
-    Button_Init                              0x08000325   Thumb Code    68  button.o(.text.Button_Init)
-    Button_IsPressed                         0x08000369   Thumb Code    92  button.o(.text.Button_IsPressed)
-    DelayMs                                  0x080003e9   Thumb Code    24  delay.o(.text.DelayMs)
-    Delay_Init                               0x08000401   Thumb Code    30  delay.o(.text.Delay_Init)
-    FlushSnakeTask                           0x08000421   Thumb Code    20  task.o(.text.FlushSnakeTask)
-    GPIO_Init                                0x08000435   Thumb Code   176  stm32f10x_gpio.o(.text.GPIO_Init)
-    GPIO_ReadInputDataBit                    0x080004e5   Thumb Code    10  stm32f10x_gpio.o(.text.GPIO_ReadInputDataBit)
-    GPIO_ResetBits                           0x080004f1   Thumb Code     4  stm32f10x_gpio.o(.text.GPIO_ResetBits)
-    GPIO_SetBits                             0x080004f5   Thumb Code     4  stm32f10x_gpio.o(.text.GPIO_SetBits)
-    GPIOx_Init                               0x080004f9   Thumb Code    92  gpio.o(.text.GPIOx_Init)
-    Init                                     0x08000555   Thumb Code    78  main.o(.text.Init)
-    Loop                                     0x080005a5   Thumb Code     8  main.o(.text.Loop)
-    RCC_APB2PeriphClockCmd                   0x080005ad   Thumb Code    24  stm32f10x_rcc.o(.text.RCC_APB2PeriphClockCmd)
-    Snake_Draw                               0x0800068d   Thumb Code   236  snake.o(.text.Snake_Draw)
-    Snake_Init                               0x08000779   Thumb Code   234  snake.o(.text.Snake_Init)
-    Snake_Reset                              0x08000905   Thumb Code   140  snake.o(.text.Snake_Reset)
-    Snake_SetDirection                       0x08000991   Thumb Code    44  snake.o(.text.Snake_SetDirection)
-    Snake_Update                             0x080009bd   Thumb Code   256  snake.o(.text.Snake_Update)
-    SysTick_Handler                          0x08000abd   Thumb Code    16  delay.o(.text.SysTick_Handler)
-    SystemInit                               0x08000acd   Thumb Code    86  system_stm32f10x.o(.text.SystemInit)
-    TaskFunction                             0x08000b25   Thumb Code    44  task.o(.text.TaskFunction)
-    WorkAssignment                           0x08000b51   Thumb Code    56  task.o(.text.WorkAssignment)
-    main                                     0x08000b89   Thumb Code    10  main.o(.text.main)
-    spi_Master_Transmit                      0x08000c69   Thumb Code    32  spi.o(.text.spi_Master_Transmit)
-    st7735_BitMap                            0x08000c89   Thumb Code   154  st7735.o(.text.st7735_BitMap)
-    st7735_Direction                         0x08000d25   Thumb Code    62  st7735.o(.text.st7735_Direction)
-    st7735_DrawPixel                         0x08000d65   Thumb Code    82  st7735.o(.text.st7735_DrawPixel)
-    st7735_FillCircle                        0x08000db9   Thumb Code   132  st7735.o(.text.st7735_FillCircle)
-    st7735_FillRect                          0x08000e3d   Thumb Code   156  st7735.o(.text.st7735_FillRect)
-    st7735_FillScreen_Fast                   0x08000ed9   Thumb Code   158  st7735.o(.text.st7735_FillScreen_Fast)
-    st7735_Init                              0x08000f79   Thumb Code   166  st7735.o(.text.st7735_Init)
-    st7735_InvertColors                      0x08001021   Thumb Code    42  st7735.o(.text.st7735_InvertColors)
-    st7735_PutChar                           0x0800104d   Thumb Code   138  st7735.o(.text.st7735_PutChar)
-    st7735_PutString                         0x080010d9   Thumb Code   162  st7735.o(.text.st7735_PutString)
-    st7735_SendCmd                           0x0800117d   Thumb Code    52  st7735.o(.text.st7735_SendCmd)
-    st7735_SendCmdList                       0x080011b1   Thumb Code    64  st7735.o(.text.st7735_SendCmdList)
-    st7735_SendData                          0x080011f1   Thumb Code    52  st7735.o(.text.st7735_SendData)
-    st7735_SetWindow                         0x08001225   Thumb Code    82  st7735.o(.text.st7735_SetWindow)
-    Font_11x18                               0x08001fd2   Data           6  fonts.o(.rodata.Font_11x18)
-    Region$$Table$$Base                      0x08002034   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08002054   Number         0  anon$$obj.o(Region$$Table)
-    button                                   0x20000000   Data           8  button.o(.data.button)
-    delay                                    0x20000008   Data           4  delay.o(.data.delay)
-    lcd                                      0x2000000c   Data          44  st7735.o(.data.lcd)
-    snake                                    0x20000038   Data          20  snake.o(.data.snake)
-    spi1                                     0x2000004c   Data           8  spi.o(.data.spi1)
-    _random_number_data                      0x20000058   Data         228  rand.o(.bss)
-    __libspace_start                         0x2000013c   Data          96  libspace.o(.bss)
-    ButtonTaskStruct                         0x2000019c   Data          12  task.o(.bss.ButtonTaskStruct)
-    __temporary_stack_top$libspace           0x2000019c   Data           0  libspace.o(.bss)
-    SnakeTaskStruct                          0x200001ac   Data          12  task.o(.bss.SnakeTaskStruct)
-    gameState                                0x200001de   Data           1  snake.o(.bss.gameState)
-    tickMs                                   0x20000378   Data           4  delay.o(.bss.tickMs)
+    ButtonTask                               0x080002b9   Thumb Code   102  task.o(.text.ButtonTask)
+    Button_Init                              0x08000321   Thumb Code    62  button.o(.text.Button_Init)
+    Button_IsPressed                         0x08000361   Thumb Code    92  button.o(.text.Button_IsPressed)
+    Button_IsResetPressed                    0x080003bd   Thumb Code    80  button.o(.text.Button_IsResetPressed)
+    Button_Reset_Init                        0x0800044d   Thumb Code    72  button.o(.text.Button_Reset_Init)
+    DelayMs                                  0x08000495   Thumb Code    24  delay.o(.text.DelayMs)
+    Delay_Init                               0x080004ad   Thumb Code    30  delay.o(.text.Delay_Init)
+    FlushSnakeTask                           0x080004cd   Thumb Code    20  task.o(.text.FlushSnakeTask)
+    GPIO_Init                                0x080004e1   Thumb Code   176  stm32f10x_gpio.o(.text.GPIO_Init)
+    GPIO_ReadInputDataBit                    0x08000591   Thumb Code    10  stm32f10x_gpio.o(.text.GPIO_ReadInputDataBit)
+    GPIO_ResetBits                           0x0800059d   Thumb Code     4  stm32f10x_gpio.o(.text.GPIO_ResetBits)
+    GPIO_SetBits                             0x080005a1   Thumb Code     4  stm32f10x_gpio.o(.text.GPIO_SetBits)
+    GPIOx_Init                               0x080005a5   Thumb Code    92  gpio.o(.text.GPIOx_Init)
+    Init                                     0x08000601   Thumb Code    78  main.o(.text.Init)
+    Loop                                     0x08000651   Thumb Code     8  main.o(.text.Loop)
+    RCC_APB2PeriphClockCmd                   0x08000659   Thumb Code    24  stm32f10x_rcc.o(.text.RCC_APB2PeriphClockCmd)
+    Snake_Draw                               0x08000739   Thumb Code   236  snake.o(.text.Snake_Draw)
+    Snake_Init                               0x08000825   Thumb Code   234  snake.o(.text.Snake_Init)
+    Snake_Reset                              0x080009b1   Thumb Code     8  snake.o(.text.Snake_Reset)
+    Snake_SetDirection                       0x080009b9   Thumb Code    44  snake.o(.text.Snake_SetDirection)
+    Snake_Update                             0x080009e5   Thumb Code   256  snake.o(.text.Snake_Update)
+    SysTick_Handler                          0x08000ae5   Thumb Code    16  delay.o(.text.SysTick_Handler)
+    SystemInit                               0x08000af5   Thumb Code    86  system_stm32f10x.o(.text.SystemInit)
+    TaskFunction                             0x08000b4d   Thumb Code    44  task.o(.text.TaskFunction)
+    WorkAssignment                           0x08000b79   Thumb Code    56  task.o(.text.WorkAssignment)
+    main                                     0x08000bb1   Thumb Code    10  main.o(.text.main)
+    spi_Master_Transmit                      0x08000c91   Thumb Code    32  spi.o(.text.spi_Master_Transmit)
+    st7735_BitMap                            0x08000cb1   Thumb Code   154  st7735.o(.text.st7735_BitMap)
+    st7735_Direction                         0x08000d4d   Thumb Code    62  st7735.o(.text.st7735_Direction)
+    st7735_DrawPixel                         0x08000d8d   Thumb Code    82  st7735.o(.text.st7735_DrawPixel)
+    st7735_FillCircle                        0x08000de1   Thumb Code   132  st7735.o(.text.st7735_FillCircle)
+    st7735_FillRect                          0x08000e65   Thumb Code   156  st7735.o(.text.st7735_FillRect)
+    st7735_FillScreen_Fast                   0x08000f01   Thumb Code   158  st7735.o(.text.st7735_FillScreen_Fast)
+    st7735_Init                              0x08000fa1   Thumb Code   166  st7735.o(.text.st7735_Init)
+    st7735_InvertColors                      0x08001049   Thumb Code    42  st7735.o(.text.st7735_InvertColors)
+    st7735_PutChar                           0x08001075   Thumb Code   138  st7735.o(.text.st7735_PutChar)
+    st7735_PutString                         0x08001101   Thumb Code   162  st7735.o(.text.st7735_PutString)
+    st7735_SendCmd                           0x080011a5   Thumb Code    52  st7735.o(.text.st7735_SendCmd)
+    st7735_SendCmdList                       0x080011d9   Thumb Code    64  st7735.o(.text.st7735_SendCmdList)
+    st7735_SendData                          0x08001219   Thumb Code    52  st7735.o(.text.st7735_SendData)
+    st7735_SetWindow                         0x0800124d   Thumb Code    82  st7735.o(.text.st7735_SetWindow)
+    Font_11x18                               0x08001ffa   Data           6  fonts.o(.rodata.Font_11x18)
+    Region$$Table$$Base                      0x08002054   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08002074   Number         0  anon$$obj.o(Region$$Table)
+    button                                   0x20000004   Data          16  button.o(.data.button)
+    delay                                    0x20000014   Data           4  delay.o(.data.delay)
+    lcd                                      0x20000018   Data          44  st7735.o(.data.lcd)
+    snake                                    0x20000044   Data          20  snake.o(.data.snake)
+    spi1                                     0x20000058   Data           8  spi.o(.data.spi1)
+    _random_number_data                      0x20000060   Data         228  rand.o(.bss)
+    __libspace_start                         0x20000144   Data          96  libspace.o(.bss)
+    ButtonTaskStruct                         0x200001a4   Data          12  task.o(.bss.ButtonTaskStruct)
+    __temporary_stack_top$libspace           0x200001a4   Data           0  libspace.o(.bss)
+    SnakeTaskStruct                          0x200001b4   Data          12  task.o(.bss.SnakeTaskStruct)
+    gameState                                0x200001e2   Data           1  snake.o(.bss.gameState)
+    tickMs                                   0x2000037c   Data           4  delay.o(.bss.tickMs)
 
 
 
@@ -1232,180 +1259,186 @@ Memory Map of the image
 
   Image Entry point : 0x080000ed
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000020b0, Max: 0x00010000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000020d8, Max: 0x00010000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00002054, Max: 0x00010000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00002074, Max: 0x00010000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x08000000   0x08000000   0x000000ec   Data   RO          427    RESET               startup_stm32f10x_md.o
-    0x080000ec   0x080000ec   0x00000008   Code   RO          463  * !!!main             c_w.l(__main.o)
-    0x080000f4   0x080000f4   0x00000034   Code   RO          626    !!!scatter          c_w.l(__scatter.o)
-    0x08000128   0x08000128   0x0000001a   Code   RO          628    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x08000000   0x08000000   0x000000ec   Data   RO          437    RESET               startup_stm32f10x_md.o
+    0x080000ec   0x080000ec   0x00000008   Code   RO          473  * !!!main             c_w.l(__main.o)
+    0x080000f4   0x080000f4   0x00000034   Code   RO          636    !!!scatter          c_w.l(__scatter.o)
+    0x08000128   0x08000128   0x0000001a   Code   RO          638    !!handler_copy      c_w.l(__scatter_copy.o)
     0x08000142   0x08000142   0x00000002   PAD
-    0x08000144   0x08000144   0x0000001c   Code   RO          630    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x08000160   0x08000160   0x00000002   Code   RO          543    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          467    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          469    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          472    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          474    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000004   Code   RO          475    .ARM.Collect$$libinit$$0000000D  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          476    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          479    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          481    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          483    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          485    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          487    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          489    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          491    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          493    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          495    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          497    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          499    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          503    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          505    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          507    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          509    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x08000166   0x08000166   0x00000002   Code   RO          510    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x08000168   0x08000168   0x00000002   Code   RO          585    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x0800016a   0x0800016a   0x00000000   Code   RO          593    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x0800016a   0x0800016a   0x00000000   Code   RO          595    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x0800016a   0x0800016a   0x00000000   Code   RO          598    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
-    0x0800016a   0x0800016a   0x00000000   Code   RO          601    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
-    0x0800016a   0x0800016a   0x00000000   Code   RO          603    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x0800016a   0x0800016a   0x00000000   Code   RO          606    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x0800016a   0x0800016a   0x00000002   Code   RO          607    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
-    0x0800016c   0x0800016c   0x00000000   Code   RO          465    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x0800016c   0x0800016c   0x00000000   Code   RO          512    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x0800016c   0x0800016c   0x00000006   Code   RO          524    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x08000172   0x08000172   0x00000000   Code   RO          514    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x08000172   0x08000172   0x00000004   Code   RO          515    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x08000176   0x08000176   0x00000000   Code   RO          517    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x08000176   0x08000176   0x00000008   Code   RO          518    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x0800017e   0x0800017e   0x00000002   Code   RO          551    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x08000180   0x08000180   0x00000000   Code   RO          563    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x08000180   0x08000180   0x00000004   Code   RO          564    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x08000184   0x08000184   0x00000006   Code   RO          565    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x08000144   0x08000144   0x0000001c   Code   RO          640    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x08000160   0x08000160   0x00000002   Code   RO          553    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          477    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          479    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          482    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          484    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000004   Code   RO          485    .ARM.Collect$$libinit$$0000000D  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          486    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          489    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          491    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          493    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          495    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          497    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          499    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          501    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          503    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          505    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          507    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          509    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          513    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          515    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          517    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          519    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x08000166   0x08000166   0x00000002   Code   RO          520    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x08000168   0x08000168   0x00000002   Code   RO          595    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x0800016a   0x0800016a   0x00000000   Code   RO          603    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x0800016a   0x0800016a   0x00000000   Code   RO          605    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x0800016a   0x0800016a   0x00000000   Code   RO          608    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
+    0x0800016a   0x0800016a   0x00000000   Code   RO          611    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
+    0x0800016a   0x0800016a   0x00000000   Code   RO          613    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x0800016a   0x0800016a   0x00000000   Code   RO          616    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x0800016a   0x0800016a   0x00000002   Code   RO          617    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
+    0x0800016c   0x0800016c   0x00000000   Code   RO          475    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x0800016c   0x0800016c   0x00000000   Code   RO          522    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x0800016c   0x0800016c   0x00000006   Code   RO          534    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x08000172   0x08000172   0x00000000   Code   RO          524    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x08000172   0x08000172   0x00000004   Code   RO          525    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x08000176   0x08000176   0x00000000   Code   RO          527    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x08000176   0x08000176   0x00000008   Code   RO          528    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x0800017e   0x0800017e   0x00000002   Code   RO          561    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x08000180   0x08000180   0x00000000   Code   RO          573    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x08000180   0x08000180   0x00000004   Code   RO          574    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x08000184   0x08000184   0x00000006   Code   RO          575    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x0800018a   0x0800018a   0x00000002   PAD
-    0x0800018c   0x0800018c   0x00000034   Code   RO          454    .emb_text           c_w.l(rand.o)
-    0x080001c0   0x080001c0   0x00000040   Code   RO          428    .text               startup_stm32f10x_md.o
-    0x08000200   0x08000200   0x0000003c   Code   RO          455    .text               c_w.l(rand.o)
-    0x0800023c   0x0800023c   0x00000006   Code   RO          461    .text               c_w.l(heapauxi.o)
-    0x08000242   0x08000242   0x0000004a   Code   RO          530    .text               c_w.l(sys_stackheap_outer.o)
-    0x0800028c   0x0800028c   0x00000012   Code   RO          532    .text               c_w.l(exit.o)
+    0x0800018c   0x0800018c   0x00000034   Code   RO          464    .emb_text           c_w.l(rand.o)
+    0x080001c0   0x080001c0   0x00000040   Code   RO          438    .text               startup_stm32f10x_md.o
+    0x08000200   0x08000200   0x0000003c   Code   RO          465    .text               c_w.l(rand.o)
+    0x0800023c   0x0800023c   0x00000006   Code   RO          471    .text               c_w.l(heapauxi.o)
+    0x08000242   0x08000242   0x0000004a   Code   RO          540    .text               c_w.l(sys_stackheap_outer.o)
+    0x0800028c   0x0800028c   0x00000012   Code   RO          542    .text               c_w.l(exit.o)
     0x0800029e   0x0800029e   0x00000002   PAD
-    0x080002a0   0x080002a0   0x00000008   Code   RO          548    .text               c_w.l(libspace.o)
-    0x080002a8   0x080002a8   0x00000002   Code   RO          559    .text               c_w.l(use_no_semi.o)
-    0x080002aa   0x080002aa   0x00000000   Code   RO          561    .text               c_w.l(indicate_semi.o)
+    0x080002a0   0x080002a0   0x00000008   Code   RO          558    .text               c_w.l(libspace.o)
+    0x080002a8   0x080002a8   0x00000002   Code   RO          569    .text               c_w.l(use_no_semi.o)
+    0x080002aa   0x080002aa   0x00000000   Code   RO          571    .text               c_w.l(indicate_semi.o)
     0x080002aa   0x080002aa   0x00000002   PAD
-    0x080002ac   0x080002ac   0x0000000c   Code   RO          575    .text               c_w.l(sys_exit.o)
-    0x080002b8   0x080002b8   0x0000006a   Code   RO          175    .text.ButtonTask    task.o
-    0x08000322   0x08000322   0x00000002   PAD
-    0x08000324   0x08000324   0x00000044   Code   RO           38    .text.Button_Init   button.o
-    0x08000368   0x08000368   0x0000005c   Code   RO           40    .text.Button_IsPressed  button.o
-    0x080003c4   0x080003c4   0x00000022   Code   RO           42    .text.Button_Read   button.o
-    0x080003e6   0x080003e6   0x00000002   PAD
-    0x080003e8   0x080003e8   0x00000018   Code   RO           20    .text.DelayMs       delay.o
-    0x08000400   0x08000400   0x0000001e   Code   RO           16    .text.Delay_Init    delay.o
-    0x0800041e   0x0800041e   0x00000002   PAD
-    0x08000420   0x08000420   0x00000014   Code   RO          177    .text.FlushSnakeTask  task.o
-    0x08000434   0x08000434   0x000000b0   Code   RO          258    .text.GPIO_Init     stm32f10x_gpio.o
-    0x080004e4   0x080004e4   0x0000000a   Code   RO          262    .text.GPIO_ReadInputDataBit  stm32f10x_gpio.o
-    0x080004ee   0x080004ee   0x00000002   PAD
-    0x080004f0   0x080004f0   0x00000004   Code   RO          272    .text.GPIO_ResetBits  stm32f10x_gpio.o
-    0x080004f4   0x080004f4   0x00000004   Code   RO          270    .text.GPIO_SetBits  stm32f10x_gpio.o
-    0x080004f8   0x080004f8   0x0000005c   Code   RO           61    .text.GPIOx_Init    gpio.o
-    0x08000554   0x08000554   0x0000004e   Code   RO            2    .text.Init          main.o
-    0x080005a2   0x080005a2   0x00000002   PAD
-    0x080005a4   0x080005a4   0x00000008   Code   RO            4    .text.Loop          main.o
-    0x080005ac   0x080005ac   0x00000018   Code   RO          342    .text.RCC_APB2PeriphClockCmd  stm32f10x_rcc.o
-    0x080005c4   0x080005c4   0x00000008   Code   RO          437    .text.SetSysClock   system_stm32f10x.o
-    0x080005cc   0x080005cc   0x000000be   Code   RO          441    .text.SetSysClockTo72  system_stm32f10x.o
-    0x0800068a   0x0800068a   0x00000002   PAD
-    0x0800068c   0x0800068c   0x000000ec   Code   RO          153    .text.Snake_Draw    snake.o
-    0x08000778   0x08000778   0x000000ea   Code   RO          145    .text.Snake_Init    snake.o
-    0x08000862   0x08000862   0x00000002   PAD
-    0x08000864   0x08000864   0x0000009e   Code   RO          151    .text.Snake_Random_Food  snake.o
-    0x08000902   0x08000902   0x00000002   PAD
-    0x08000904   0x08000904   0x0000008c   Code   RO          155    .text.Snake_Reset   snake.o
-    0x08000990   0x08000990   0x0000002c   Code   RO          147    .text.Snake_SetDirection  snake.o
-    0x080009bc   0x080009bc   0x00000100   Code   RO          149    .text.Snake_Update  snake.o
-    0x08000abc   0x08000abc   0x00000010   Code   RO           26    .text.SysTick_Handler  delay.o
-    0x08000acc   0x08000acc   0x00000056   Code   RO          435    .text.SystemInit    system_stm32f10x.o
-    0x08000b22   0x08000b22   0x00000002   PAD
-    0x08000b24   0x08000b24   0x0000002c   Code   RO          179    .text.TaskFunction  task.o
-    0x08000b50   0x08000b50   0x00000038   Code   RO          181    .text.WorkAssignment  task.o
-    0x08000b88   0x08000b88   0x0000000a   Code   RO            6    .text.main          main.o
-    0x08000b92   0x08000b92   0x00000002   PAD
-    0x08000b94   0x08000b94   0x0000000c   Code   RO           22    .text.millis        delay.o
-    0x08000ba0   0x08000ba0   0x0000000c   Code   RO           44    .text.millis        button.o
-    0x08000bac   0x08000bac   0x0000000c   Code   RO          183    .text.millis        task.o
-    0x08000bb8   0x08000bb8   0x00000090   Code   RO           79    .text.spi1_init     spi.o
-    0x08000c48   0x08000c48   0x00000020   Code   RO           81    .text.spi1_transfer  spi.o
-    0x08000c68   0x08000c68   0x00000020   Code   RO           75    .text.spi_Master_Transmit  spi.o
-    0x08000c88   0x08000c88   0x0000009a   Code   RO          121    .text.st7735_BitMap  st7735.o
-    0x08000d22   0x08000d22   0x00000002   PAD
-    0x08000d24   0x08000d24   0x0000003e   Code   RO          123    .text.st7735_Direction  st7735.o
-    0x08000d62   0x08000d62   0x00000002   PAD
-    0x08000d64   0x08000d64   0x00000052   Code   RO          109    .text.st7735_DrawPixel  st7735.o
-    0x08000db6   0x08000db6   0x00000002   PAD
-    0x08000db8   0x08000db8   0x00000084   Code   RO          117    .text.st7735_FillCircle  st7735.o
-    0x08000e3c   0x08000e3c   0x0000009c   Code   RO          115    .text.st7735_FillRect  st7735.o
-    0x08000ed8   0x08000ed8   0x0000009e   Code   RO          107    .text.st7735_FillScreen_Fast  st7735.o
-    0x08000f76   0x08000f76   0x00000002   PAD
-    0x08000f78   0x08000f78   0x000000a6   Code   RO          129    .text.st7735_Init   st7735.o
-    0x0800101e   0x0800101e   0x00000002   PAD
-    0x08001020   0x08001020   0x0000002a   Code   RO          119    .text.st7735_InvertColors  st7735.o
-    0x0800104a   0x0800104a   0x00000002   PAD
-    0x0800104c   0x0800104c   0x0000008a   Code   RO          111    .text.st7735_PutChar  st7735.o
-    0x080010d6   0x080010d6   0x00000002   PAD
-    0x080010d8   0x080010d8   0x000000a2   Code   RO          113    .text.st7735_PutString  st7735.o
-    0x0800117a   0x0800117a   0x00000002   PAD
-    0x0800117c   0x0800117c   0x00000034   Code   RO           97    .text.st7735_SendCmd  st7735.o
-    0x080011b0   0x080011b0   0x00000040   Code   RO          101    .text.st7735_SendCmdList  st7735.o
-    0x080011f0   0x080011f0   0x00000034   Code   RO           99    .text.st7735_SendData  st7735.o
-    0x08001224   0x08001224   0x00000052   Code   RO          103    .text.st7735_SetWindow  st7735.o
-    0x08001276   0x08001276   0x00000d5c   Data   RO          200    .rodata.Font11x18   fonts.o
-    0x08001fd2   0x08001fd2   0x00000006   Data   RO          199    .rodata.Font_11x18  fonts.o
-    0x08001fd8   0x08001fd8   0x0000000a   Data   RO           52    .rodata.btnPins     button.o
-    0x08001fe2   0x08001fe2   0x00000052   Data   RO          135    .rodata.u8PanelCmdList  st7735.o
-    0x08002034   0x08002034   0x00000020   Data   RO          625    Region$$Table       anon$$obj.o
+    0x080002ac   0x080002ac   0x0000000c   Code   RO          585    .text               c_w.l(sys_exit.o)
+    0x080002b8   0x080002b8   0x00000066   Code   RO          185    .text.ButtonTask    task.o
+    0x0800031e   0x0800031e   0x00000002   PAD
+    0x08000320   0x08000320   0x0000003e   Code   RO           38    .text.Button_Init   button.o
+    0x0800035e   0x0800035e   0x00000002   PAD
+    0x08000360   0x08000360   0x0000005c   Code   RO           40    .text.Button_IsPressed  button.o
+    0x080003bc   0x080003bc   0x00000050   Code   RO           48    .text.Button_IsResetPressed  button.o
+    0x0800040c   0x0800040c   0x00000024   Code   RO           42    .text.Button_Read   button.o
+    0x08000430   0x08000430   0x0000001a   Code   RO           50    .text.Button_Read_RstGame  button.o
+    0x0800044a   0x0800044a   0x00000002   PAD
+    0x0800044c   0x0800044c   0x00000048   Code   RO           46    .text.Button_Reset_Init  button.o
+    0x08000494   0x08000494   0x00000018   Code   RO           20    .text.DelayMs       delay.o
+    0x080004ac   0x080004ac   0x0000001e   Code   RO           16    .text.Delay_Init    delay.o
+    0x080004ca   0x080004ca   0x00000002   PAD
+    0x080004cc   0x080004cc   0x00000014   Code   RO          187    .text.FlushSnakeTask  task.o
+    0x080004e0   0x080004e0   0x000000b0   Code   RO          268    .text.GPIO_Init     stm32f10x_gpio.o
+    0x08000590   0x08000590   0x0000000a   Code   RO          272    .text.GPIO_ReadInputDataBit  stm32f10x_gpio.o
+    0x0800059a   0x0800059a   0x00000002   PAD
+    0x0800059c   0x0800059c   0x00000004   Code   RO          282    .text.GPIO_ResetBits  stm32f10x_gpio.o
+    0x080005a0   0x080005a0   0x00000004   Code   RO          280    .text.GPIO_SetBits  stm32f10x_gpio.o
+    0x080005a4   0x080005a4   0x0000005c   Code   RO           69    .text.GPIOx_Init    gpio.o
+    0x08000600   0x08000600   0x0000004e   Code   RO            2    .text.Init          main.o
+    0x0800064e   0x0800064e   0x00000002   PAD
+    0x08000650   0x08000650   0x00000008   Code   RO            4    .text.Loop          main.o
+    0x08000658   0x08000658   0x00000018   Code   RO          352    .text.RCC_APB2PeriphClockCmd  stm32f10x_rcc.o
+    0x08000670   0x08000670   0x00000008   Code   RO          447    .text.SetSysClock   system_stm32f10x.o
+    0x08000678   0x08000678   0x000000be   Code   RO          451    .text.SetSysClockTo72  system_stm32f10x.o
+    0x08000736   0x08000736   0x00000002   PAD
+    0x08000738   0x08000738   0x000000ec   Code   RO          161    .text.Snake_Draw    snake.o
+    0x08000824   0x08000824   0x000000ea   Code   RO          153    .text.Snake_Init    snake.o
+    0x0800090e   0x0800090e   0x00000002   PAD
+    0x08000910   0x08000910   0x0000009e   Code   RO          159    .text.Snake_Random_Food  snake.o
+    0x080009ae   0x080009ae   0x00000002   PAD
+    0x080009b0   0x080009b0   0x00000008   Code   RO          163    .text.Snake_Reset   snake.o
+    0x080009b8   0x080009b8   0x0000002c   Code   RO          155    .text.Snake_SetDirection  snake.o
+    0x080009e4   0x080009e4   0x00000100   Code   RO          157    .text.Snake_Update  snake.o
+    0x08000ae4   0x08000ae4   0x00000010   Code   RO           26    .text.SysTick_Handler  delay.o
+    0x08000af4   0x08000af4   0x00000056   Code   RO          445    .text.SystemInit    system_stm32f10x.o
+    0x08000b4a   0x08000b4a   0x00000002   PAD
+    0x08000b4c   0x08000b4c   0x0000002c   Code   RO          189    .text.TaskFunction  task.o
+    0x08000b78   0x08000b78   0x00000038   Code   RO          191    .text.WorkAssignment  task.o
+    0x08000bb0   0x08000bb0   0x0000000a   Code   RO            6    .text.main          main.o
+    0x08000bba   0x08000bba   0x00000002   PAD
+    0x08000bbc   0x08000bbc   0x0000000c   Code   RO           22    .text.millis        delay.o
+    0x08000bc8   0x08000bc8   0x0000000c   Code   RO           44    .text.millis        button.o
+    0x08000bd4   0x08000bd4   0x0000000c   Code   RO          193    .text.millis        task.o
+    0x08000be0   0x08000be0   0x00000090   Code   RO           87    .text.spi1_init     spi.o
+    0x08000c70   0x08000c70   0x00000020   Code   RO           89    .text.spi1_transfer  spi.o
+    0x08000c90   0x08000c90   0x00000020   Code   RO           83    .text.spi_Master_Transmit  spi.o
+    0x08000cb0   0x08000cb0   0x0000009a   Code   RO          129    .text.st7735_BitMap  st7735.o
+    0x08000d4a   0x08000d4a   0x00000002   PAD
+    0x08000d4c   0x08000d4c   0x0000003e   Code   RO          131    .text.st7735_Direction  st7735.o
+    0x08000d8a   0x08000d8a   0x00000002   PAD
+    0x08000d8c   0x08000d8c   0x00000052   Code   RO          117    .text.st7735_DrawPixel  st7735.o
+    0x08000dde   0x08000dde   0x00000002   PAD
+    0x08000de0   0x08000de0   0x00000084   Code   RO          125    .text.st7735_FillCircle  st7735.o
+    0x08000e64   0x08000e64   0x0000009c   Code   RO          123    .text.st7735_FillRect  st7735.o
+    0x08000f00   0x08000f00   0x0000009e   Code   RO          115    .text.st7735_FillScreen_Fast  st7735.o
+    0x08000f9e   0x08000f9e   0x00000002   PAD
+    0x08000fa0   0x08000fa0   0x000000a6   Code   RO          137    .text.st7735_Init   st7735.o
+    0x08001046   0x08001046   0x00000002   PAD
+    0x08001048   0x08001048   0x0000002a   Code   RO          127    .text.st7735_InvertColors  st7735.o
+    0x08001072   0x08001072   0x00000002   PAD
+    0x08001074   0x08001074   0x0000008a   Code   RO          119    .text.st7735_PutChar  st7735.o
+    0x080010fe   0x080010fe   0x00000002   PAD
+    0x08001100   0x08001100   0x000000a2   Code   RO          121    .text.st7735_PutString  st7735.o
+    0x080011a2   0x080011a2   0x00000002   PAD
+    0x080011a4   0x080011a4   0x00000034   Code   RO          105    .text.st7735_SendCmd  st7735.o
+    0x080011d8   0x080011d8   0x00000040   Code   RO          109    .text.st7735_SendCmdList  st7735.o
+    0x08001218   0x08001218   0x00000034   Code   RO          107    .text.st7735_SendData  st7735.o
+    0x0800124c   0x0800124c   0x00000052   Code   RO          111    .text.st7735_SetWindow  st7735.o
+    0x0800129e   0x0800129e   0x00000d5c   Data   RO          210    .rodata.Font11x18   fonts.o
+    0x08001ffa   0x08001ffa   0x00000006   Data   RO          209    .rodata.Font_11x18  fonts.o
+    0x08002000   0x08002000   0x00000052   Data   RO          143    .rodata.u8PanelCmdList  st7735.o
+    0x08002052   0x08002052   0x00000002   PAD
+    0x08002054   0x08002054   0x00000020   Data   RO          635    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08002058, Size: 0x00000980, Max: 0x00005000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08002078, Size: 0x00000980, Max: 0x00005000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08002058   0x00000008   Data   RW           51    .data.button        button.o
-    0x20000008   0x08002060   0x00000004   Data   RW           29    .data.delay         delay.o
-    0x2000000c   0x08002064   0x0000002c   Data   RW          136    .data.lcd           st7735.o
-    0x20000038   0x08002090   0x00000014   Data   RW          164    .data.snake         snake.o
-    0x2000004c   0x080020a4   0x00000008   Data   RW           87    .data.spi1          spi.o
-    0x20000054   0x080020ac   0x00000004   PAD
-    0x20000058        -       0x000000e4   Zero   RW          456    .bss                c_w.l(rand.o)
-    0x2000013c        -       0x00000060   Zero   RW          549    .bss                c_w.l(libspace.o)
-    0x2000019c        -       0x0000000c   Zero   RW          185    .bss.ButtonTaskStruct  task.o
-    0x200001a8        -       0x00000001   Zero   RW          134    .bss.ST7735_HEIGHT  st7735.o
-    0x200001a9        -       0x00000001   Zero   RW          133    .bss.ST7735_WIDTH   st7735.o
-    0x200001aa   0x080020ac   0x00000002   PAD
-    0x200001ac        -       0x0000000c   Zero   RW          186    .bss.SnakeTaskStruct  task.o
-    0x200001b8        -       0x00000005   Zero   RW           48    .bss.btn_cur_state  button.o
-    0x200001bd   0x080020ac   0x00000003   PAD
-    0x200001c0        -       0x00000014   Zero   RW           50    .bss.btn_debounce_time  button.o
-    0x200001d4        -       0x00000005   Zero   RW           49    .bss.btn_last_state  button.o
-    0x200001d9        -       0x00000001   Zero   RW          161    .bss.direction      snake.o
-    0x200001da        -       0x00000002   Zero   RW          165    .bss.food.0         snake.o
-    0x200001dc        -       0x00000002   Zero   RW          166    .bss.food.1         snake.o
-    0x200001de        -       0x00000001   Zero   RW          162    .bss.gameState      snake.o
-    0x200001df   0x080020ac   0x00000001   PAD
-    0x200001e0        -       0x00000190   Zero   RW          160    .bss.snakeBody      snake.o
-    0x20000370        -       0x00000001   Zero   RW          159    .bss.snake_length   snake.o
-    0x20000371   0x080020ac   0x00000003   PAD
-    0x20000374        -       0x00000004   Zero   RW          163    .bss.tail           snake.o
-    0x20000378        -       0x00000004   Zero   RW           28    .bss.tickMs         delay.o
-    0x2000037c   0x080020ac   0x00000004   PAD
-    0x20000380        -       0x00000200   Zero   RW          426    HEAP                startup_stm32f10x_md.o
-    0x20000580        -       0x00000400   Zero   RW          425    STACK               startup_stm32f10x_md.o
+    0x20000000   0x08002078   0x00000001   Data   RW           58    .data.btn_game_curr  button.o
+    0x20000001   0x08002079   0x00000001   Data   RW           57    .data.btn_game_prev  button.o
+    0x20000002   0x0800207a   0x00000002   PAD
+    0x20000004   0x0800207c   0x00000010   Data   RW           60    .data.button        button.o
+    0x20000014   0x0800208c   0x00000004   Data   RW           29    .data.delay         delay.o
+    0x20000018   0x08002090   0x0000002c   Data   RW          144    .data.lcd           st7735.o
+    0x20000044   0x080020bc   0x00000014   Data   RW          172    .data.snake         snake.o
+    0x20000058   0x080020d0   0x00000008   Data   RW           95    .data.spi1          spi.o
+    0x20000060        -       0x000000e4   Zero   RW          466    .bss                c_w.l(rand.o)
+    0x20000144        -       0x00000060   Zero   RW          559    .bss                c_w.l(libspace.o)
+    0x200001a4        -       0x0000000c   Zero   RW          195    .bss.ButtonTaskStruct  task.o
+    0x200001b0        -       0x00000001   Zero   RW          142    .bss.ST7735_HEIGHT  st7735.o
+    0x200001b1        -       0x00000001   Zero   RW          141    .bss.ST7735_WIDTH   st7735.o
+    0x200001b2   0x080020d8   0x00000002   PAD
+    0x200001b4        -       0x0000000c   Zero   RW          196    .bss.SnakeTaskStruct  task.o
+    0x200001c0        -       0x00000004   Zero   RW           54    .bss.btn_cur_state  button.o
+    0x200001c4        -       0x00000010   Zero   RW           56    .bss.btn_debounce_time  button.o
+    0x200001d4        -       0x00000004   Zero   RW           59    .bss.btn_game_debounce  button.o
+    0x200001d8        -       0x00000004   Zero   RW           55    .bss.btn_last_state  button.o
+    0x200001dc        -       0x00000001   Zero   RW          169    .bss.direction      snake.o
+    0x200001dd   0x080020d8   0x00000001   PAD
+    0x200001de        -       0x00000002   Zero   RW          173    .bss.food.0         snake.o
+    0x200001e0        -       0x00000002   Zero   RW          174    .bss.food.1         snake.o
+    0x200001e2        -       0x00000001   Zero   RW          170    .bss.gameState      snake.o
+    0x200001e3   0x080020d8   0x00000001   PAD
+    0x200001e4        -       0x00000190   Zero   RW          168    .bss.snakeBody      snake.o
+    0x20000374        -       0x00000001   Zero   RW          167    .bss.snake_length   snake.o
+    0x20000375   0x080020d8   0x00000003   PAD
+    0x20000378        -       0x00000004   Zero   RW          171    .bss.tail           snake.o
+    0x2000037c        -       0x00000004   Zero   RW           28    .bss.tickMs         delay.o
+    0x20000380        -       0x00000200   Zero   RW          436    HEAP                startup_stm32f10x_md.o
+    0x20000580        -       0x00000400   Zero   RW          435    STACK               startup_stm32f10x_md.o
 
 
 ==============================================================================
@@ -1415,24 +1448,24 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       206          0         10          8         30       3037   button.o
+       380          8          0         18         28       3721   button.o
         82          0          0          4          4       1670   delay.o
          0          0       3426          0          0        834   fonts.o
         92          0          0          0          0       2009   gpio.o
         96          0          0          0          0        607   main.o
-      1068         16          0         20        411       3505   snake.o
+       936         16          0         20        411       3386   snake.o
        208          0          0          8          0       3539   spi.o
       1502          0         82         44          2       8620   st7735.o
         64         26        236          0       1536        840   startup_stm32f10x_md.o
        194          0          0          0          0       5933   stm32f10x_gpio.o
         24          0          0          0          0       7749   stm32f10x_rcc.o
        284          0          0          0          0       2855   system_stm32f10x.o
-       238          8          0          0         24       1843   task.o
+       234          8          0          0         24       2009   task.o
 
     ----------------------------------------------------------------------
-      4094         50       3786         84       2024      43041   Object Totals
+      4134         58       3778         96       2012      43772   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        36          0          0          0         17          0   (incl. Padding)
+        38          0          2          2          7          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -1480,15 +1513,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      4490         84       3786         84       2348      43413   Grand Totals
-      4490         84       3786         84       2348      43413   ELF Image Totals
-      4490         84       3786         84          0          0   ROM Totals
+      4530         92       3778         96       2336      44144   Grand Totals
+      4530         92       3778         96       2336      44144   ELF Image Totals
+      4530         92       3778         96          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 8276 (   8.08kB)
+    Total RO  Size (Code + RO Data)                 8308 (   8.11kB)
     Total RW  Size (RW Data + ZI Data)              2432 (   2.38kB)
-    Total ROM Size (Code + RO Data + RW Data)       8360 (   8.16kB)
+    Total ROM Size (Code + RO Data + RW Data)       8404 (   8.21kB)
 
 ==============================================================================
 
