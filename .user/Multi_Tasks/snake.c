@@ -5,9 +5,8 @@
 #include <stdlib.h>
 
 Snake_Driver_t snake;
-
 static Point_t snakeBody[SNAKE_MAX_LEN];
-static uint8_t snake_length;
+static uint16_t snake_length;
 static SnakeDirection_e direction;
 static Point_t food;
 static Point_t tail;
@@ -36,13 +35,9 @@ void Snake_Init(void)
 	snakeBody[2] = (Point_t){3, 5};
 	direction = SNAKE_RIGHT;
 
-	gameState = GAME_RUNNING;
-
 	/* Random moi khi start game */
-	int16_t x_max = ST7735_WIDTH / BLOCK_SIZE;
-	int16_t y_max = ST7735_HEIGHT / BLOCK_SIZE;
-	food.x = rand() % x_max;
-	food.y = rand() % y_max;
+	gameState = GAME_RUNNING;
+	Snake_Random_Food();
 
 	/* Ve snake ban dau */
 	for (int i = 0; i < snake_length; i++)
@@ -50,7 +45,7 @@ void Snake_Init(void)
 		uint16_t color = (i == 0) ? GREEN : YELLOW;
 		st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, color);
 	}
-	draw_food_cell(food.x, food.y, RED);
+	// draw_food_cell(food.x, food.y, RED);
 }
 void Snake_SetDirection(SnakeDirection_e dir)
 {
@@ -68,6 +63,14 @@ static void Snake_Random_Food(void)
 	int16_t x_max = ST7735_WIDTH / BLOCK_SIZE;
 	int16_t y_max = ST7735_HEIGHT / BLOCK_SIZE;
 	_Bool found_valid_position = 0;
+
+	/* Neu khong con o trong -> WIN, khong sinh moi nua */
+	int16_t total_cells = x_max * y_max;
+	if (snake_length >= total_cells)
+	{
+		gameState = GAME_WIN;
+		return;
+	}
 
 	while (!found_valid_position)
 	{
@@ -105,7 +108,8 @@ static inline void draw_food_cell(int fx, int fy, uint16_t color)
 
 void Snake_Update(void)
 {
-	if (gameState == GAME_OVER)
+	/* Dung moi Update neu khong RUNNING (OVER/WIN) */
+	if (gameState != GAME_RUNNING)
 		return;
 
 	tail = snakeBody[snake_length - 1];
@@ -153,8 +157,8 @@ void Snake_Update(void)
 	}
 
 	/* update snake head*/
-	snakeBody[0].x = (uint8_t)x_new;
-	snakeBody[0].y = (uint8_t)y_new;
+	snakeBody[0].x = x_new;
+	snakeBody[0].y = y_new;
 
 	/* tu can -> game over */
 	for (int i = 1; i < snake_length; i++)
@@ -166,7 +170,7 @@ void Snake_Update(void)
 		}
 	}
 
-	/* an food */
+	/* an food (chi tang khi thuc su an) */
 	if (snakeBody[0].x == food.x && snakeBody[0].y == food.y)
 	{
 		if (snake_length < SNAKE_MAX_LEN)
@@ -174,6 +178,14 @@ void Snake_Update(void)
 			snakeBody[snake_length] = snakeBody[snake_length - 1];
 			snake_length++;
 		}
+		/* WIN khi khong con o trong, hoac neu ban muon: khi dat tran mang */
+		int16_t total_cells = GRID_W * GRID_H;
+		if (snake_length >= total_cells || snake_length >= SNAKE_MAX_LEN)
+		{
+			gameState = GAME_WIN;
+			return;
+		}
+		/* Con o trong -> tiep tuc sinh moi moi */
 		Snake_Random_Food();
 	}
 }
@@ -182,7 +194,12 @@ void Snake_Draw(void)
 {
 	if (gameState == GAME_OVER)
 	{
-		st7735_PutString((ST7735_WIDTH - 9 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "GAME OVER", Font_11x18, WHITE, BLACK);
+		lcd.PutString((ST7735_WIDTH - 9 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "GAME OVER", Font_11x18, WHITE, BLACK);
+		return;
+	}
+	if (gameState == GAME_WIN)
+	{
+		lcd.PutString((ST7735_WIDTH - 7 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "YOU WIN", Font_11x18, WHITE, BLACK);
 		return;
 	}
 

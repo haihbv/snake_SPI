@@ -45,7 +45,7 @@ void ButtonTask(void)
 	}
 
 	// <3. RESET khi game OVER -> quay lai man hinh cho>
-	if (gameState == GAME_OVER)
+	if (gameState == GAME_OVER || gameState == GAME_WIN)
 	{
 		if (button.GamePressed(GAME_BTN_RESET))
 		{
@@ -69,7 +69,7 @@ void FlushSnakeTask(void)
 		return;
 	}
 
-	if (gameState == GAME_OVER)
+	if (gameState == GAME_OVER || gameState == GAME_WIN)
 	{
 		snake.Draw();
 	}
@@ -82,7 +82,7 @@ void TaskFunction(void)
 	ButtonTaskStruct.TaskHandler = ButtonTask;
 
 	SnakeTaskStruct.LastTick = 0;
-	SnakeTaskStruct.Period = SnakeSpeed(200);
+	SnakeTaskStruct.Period = SnakeSpeed(100);
 	SnakeTaskStruct.TaskHandler = FlushSnakeTask;
 
 	gameState = GAME_WAIT_START;

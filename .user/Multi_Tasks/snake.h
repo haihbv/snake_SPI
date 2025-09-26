@@ -8,7 +8,7 @@ extern "C" {
 #include <stdint.h>
 
 #define BLOCK_SIZE 8
-#define SNAKE_MAX_LEN 100
+#define SNAKE_MAX_LEN 15
 
 typedef struct
 {
@@ -28,7 +28,8 @@ typedef enum
 {
 	GAME_WAIT_START,
 	GAME_RUNNING,
-	GAME_OVER
+	GAME_OVER,
+	GAME_WIN
 } GameState_e;
 
 extern GameState_e gameState;

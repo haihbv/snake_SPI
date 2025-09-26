@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\snake.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\snake.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Sat Sep 27 04:45:28 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Sat Sep 27 05:39:55 2025
 <BR><P>
-<H3>Maximum Stack Usage =        224 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        240 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 Snake_Update &rArr; Snake_Random_Food &rArr; draw_food_cell &rArr; st7735_FillCircleInBox &rArr; _drawHSpanClippedToBox &rArr; st7735_SetWindow &rArr; st7735_SendData
 <P>
@@ -264,9 +264,8 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
 </UL>
 
-<P><STRONG><a name="[7b]"></a>rand</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, rand.o(.emb_text))
-<BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Init
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Random_Food
+<P><STRONG><a name="[7c]"></a>rand</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, rand.o(.emb_text))
+<BR><BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Random_Food
 </UL>
 
 <P><STRONG><a name="[0]"></a>Reset_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, startup_stm32f10x_md.o(.text))
@@ -530,7 +529,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
 </UL>
 
-<P><STRONG><a name="[37]"></a>ButtonTask</STRONG> (Thumb, 208 bytes, Stack size 16 bytes, task.o(.text.ButtonTask))
+<P><STRONG><a name="[37]"></a>ButtonTask</STRONG> (Thumb, 212 bytes, Stack size 16 bytes, task.o(.text.ButtonTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = ButtonTask
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> task.o(.text.TaskFunction)
@@ -547,7 +546,7 @@ Global Symbols
 <P><STRONG><a name="[3d]"></a>Delay_Init</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, delay.o(.text.Delay_Init))
 <BR>[Address Reference Count : 1]<UL><LI> delay.o(.data.delay)
 </UL>
-<P><STRONG><a name="[38]"></a>FlushSnakeTask</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, task.o(.text.FlushSnakeTask))
+<P><STRONG><a name="[38]"></a>FlushSnakeTask</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, task.o(.text.FlushSnakeTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = FlushSnakeTask
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> task.o(.text.TaskFunction)
@@ -625,30 +624,28 @@ Global Symbols
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOx_Init
 </UL>
 
-<P><STRONG><a name="[4e]"></a>Snake_Draw</STRONG> (Thumb, 272 bytes, Stack size 32 bytes, snake.o(.text.Snake_Draw))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = Snake_Draw &rArr; st7735_PutString &rArr; st7735_PutChar &rArr; st7735_DrawPixel &rArr; st7735_SetWindow &rArr; st7735_SendData
+<P><STRONG><a name="[4e]"></a>Snake_Draw</STRONG> (Thumb, 372 bytes, Stack size 32 bytes, snake.o(.text.Snake_Draw))
+<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = Snake_Draw &rArr; draw_food_cell &rArr; st7735_FillCircleInBox &rArr; _drawHSpanClippedToBox &rArr; st7735_SetWindow &rArr; st7735_SendData
 </UL>
 <BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_food_cell
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st7735_PutString
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st7735_FillRect
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> snake.o(.data.snake)
 </UL>
-<P><STRONG><a name="[4c]"></a>Snake_Init</STRONG> (Thumb, 238 bytes, Stack size 32 bytes, snake.o(.text.Snake_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = Snake_Init &rArr; draw_food_cell &rArr; st7735_FillCircleInBox &rArr; _drawHSpanClippedToBox &rArr; st7735_SetWindow &rArr; st7735_SendData
+<P><STRONG><a name="[4c]"></a>Snake_Init</STRONG> (Thumb, 156 bytes, Stack size 24 bytes, snake.o(.text.Snake_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = Snake_Init &rArr; Snake_Random_Food &rArr; draw_food_cell &rArr; st7735_FillCircleInBox &rArr; _drawHSpanClippedToBox &rArr; st7735_SetWindow &rArr; st7735_SendData
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;millis
-<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_food_cell
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Random_Food
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st7735_FillRect
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;srand
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
 </UL>
 <BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Reset
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> snake.o(.data.snake)
 </UL>
 <P><STRONG><a name="[50]"></a>Snake_Reset</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, snake.o(.text.Snake_Reset))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = Snake_Reset &rArr; Snake_Init &rArr; draw_food_cell &rArr; st7735_FillCircleInBox &rArr; _drawHSpanClippedToBox &rArr; st7735_SetWindow &rArr; st7735_SendData
+<BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = Snake_Reset &rArr; Snake_Init &rArr; Snake_Random_Food &rArr; draw_food_cell &rArr; st7735_FillCircleInBox &rArr; _drawHSpanClippedToBox &rArr; st7735_SetWindow &rArr; st7735_SendData
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Init
 </UL>
@@ -657,10 +654,10 @@ Global Symbols
 <P><STRONG><a name="[4f]"></a>Snake_SetDirection</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, snake.o(.text.Snake_SetDirection))
 <BR>[Address Reference Count : 1]<UL><LI> snake.o(.data.snake)
 </UL>
-<P><STRONG><a name="[4d]"></a>Snake_Update</STRONG> (Thumb, 320 bytes, Stack size 24 bytes, snake.o(.text.Snake_Update))
-<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = Snake_Update &rArr; Snake_Random_Food &rArr; draw_food_cell &rArr; st7735_FillCircleInBox &rArr; _drawHSpanClippedToBox &rArr; st7735_SetWindow &rArr; st7735_SendData
+<P><STRONG><a name="[4d]"></a>Snake_Update</STRONG> (Thumb, 366 bytes, Stack size 40 bytes, snake.o(.text.Snake_Update))
+<BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = Snake_Update &rArr; Snake_Random_Food &rArr; draw_food_cell &rArr; st7735_FillCircleInBox &rArr; _drawHSpanClippedToBox &rArr; st7735_SetWindow &rArr; st7735_SendData
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Random_Food
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Random_Food
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> snake.o(.data.snake)
 </UL>
@@ -844,8 +841,6 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st7735_PutChar
 </UL>
-<BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Draw
-</UL>
 <BR>[Address Reference Count : 1]<UL><LI> st7735.o(.data.lcd)
 </UL>
 <P><STRONG><a name="[86]"></a>st7735_SendCmd</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, st7735.o(.text.st7735_SendCmd))
@@ -982,13 +977,14 @@ Local Symbols
 <LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Ctrl_Pressed
 </UL>
 
-<P><STRONG><a name="[7c]"></a>Snake_Random_Food</STRONG> (Thumb, 160 bytes, Stack size 40 bytes, snake.o(.text.Snake_Random_Food))
+<P><STRONG><a name="[7b]"></a>Snake_Random_Food</STRONG> (Thumb, 190 bytes, Stack size 40 bytes, snake.o(.text.Snake_Random_Food))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = Snake_Random_Food &rArr; draw_food_cell &rArr; st7735_FillCircleInBox &rArr; _drawHSpanClippedToBox &rArr; st7735_SetWindow &rArr; st7735_SendData
 </UL>
 <BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_food_cell
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Update
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Init
 </UL>
 
 <P><STRONG><a name="[79]"></a>draw_food_cell</STRONG> (Thumb, 54 bytes, Stack size 24 bytes, snake.o(.text.draw_food_cell))
@@ -996,9 +992,8 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st7735_FillCircleInBox
 </UL>
-<BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Init
-<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Draw
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Random_Food
+<BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Draw
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Snake_Random_Food
 </UL>
 
 <P><STRONG><a name="[7a]"></a>millis</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, snake.o(.text.millis))
