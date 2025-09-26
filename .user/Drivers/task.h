@@ -22,7 +22,7 @@ extern Task_t SnakeTaskStruct;
 void ButtonTask(void);
 void FlushSnakeTask(void);
 void TaskFunction(void);
-void WordAssignment(void);
+void WorkAssignment(void);
 
 #ifdef __cplusplus
 }

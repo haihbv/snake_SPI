@@ -45,11 +45,12 @@ void TaskFunction(void)
 
 static Task_t *TaskList[] = {
 	&ButtonTaskStruct,
-	&SnakeTaskStruct};
+	&SnakeTaskStruct
+};
 
 #define SIZE_TASK (sizeof(TaskList) / sizeof(Task_t *))
 
-void WordAssignment(void)
+void WorkAssignment(void)
 {
 	uint32_t current = millis();
 	for (uint8_t i = 0; i < SIZE_TASK; i++)

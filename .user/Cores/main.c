@@ -6,8 +6,8 @@ void Init(void)
 	SystemInit();
 	delay.Init();
 	spi1.Init();
-	st7735_Init();
-	st7735_InvertColors(DISABLE);
+	lcd.Init();
+	lcd.Invert(0);
 	button.Init();
 	snake.Init();
 
@@ -15,7 +15,7 @@ void Init(void)
 }
 void Loop(void)
 {
-	WordAssignment();
+	WorkAssignment();
 }
 
 int main(void)

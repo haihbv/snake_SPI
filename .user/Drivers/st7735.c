@@ -2,6 +2,8 @@
 #include "gpio.h"
 #include "delay.h"
 
+st7735_Driver_t lcd;
+
 /*
  * @brief gui lenh command den LCD
  * @param Cmd: lenh command
@@ -391,4 +393,22 @@ void st7735_Init(void)
 
 	st7735_SendCmd(ST7735_DISPON);
 	DelayMs(105);
+}
+
+
+void lcd_AutoInit(void) __attribute__((constructor));
+
+void lcd_AutoInit(void)
+{
+	lcd.Init = st7735_Init;
+	lcd.Direction = st7735_Direction;
+	lcd.SetWindow = st7735_SetWindow;
+	lcd.FillScreen_Fast = st7735_FillScreen_Fast;
+	lcd.DrawPixel = st7735_DrawPixel;
+	lcd.PutChar = st7735_PutChar;
+	lcd.PutString = st7735_PutString;
+	lcd.Rectangle = st7735_FillRect;
+	lcd.Circle = st7735_FillCircle;
+	lcd.Invert = st7735_InvertColors;
+	lcd.Bitmap = st7735_BitMap;
 }

@@ -28,7 +28,29 @@ extern "C"
    CS       ->  PA4 (GPIO)  // Chip Select (NSS)
    BL       ->  3.3V / PA1  // Den nen
 */
+/*********************************************************************
+ * Struct
+ **********************************************************************/
+typedef struct
+{
+	void (*Init)(void);
+	void (*Direction)(uint8_t direction);
+	void (*SetWindow)(uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end);
+	void (*FillScreen_Fast)(uint16_t color);
+	void (*DrawPixel)(uint8_t xPos, uint8_t yPos, uint16_t color);
+	void (*PutChar)(uint8_t xPos, uint8_t yPos, uint8_t Char, Font_Define_t f, uint16_t color, uint16_t background);
+	void (*PutString)(uint8_t xPos, uint8_t yPos, const char *str, Font_Define_t f, uint16_t color, uint16_t background);
+	void (*Rectangle)(uint8_t xPos, uint8_t yPos, uint8_t weight, uint8_t height, uint16_t color);
+	void (*Circle)(uint8_t xPos, uint8_t yPos, uint8_t radius, uint16_t color);
+	void (*Invert)(_Bool invert);
+	void (*Bitmap)(uint8_t xPos, uint8_t yPos, uint8_t weight, uint8_t height, const uint16_t *data);
+} st7735_Driver_t;
 
+extern st7735_Driver_t lcd;
+
+/*********************************************************************
+ * Static
+ **********************************************************************/
 static uint8_t ST7735_WIDTH  = 128;
 static uint8_t ST7735_HEIGHT = 160;
 
@@ -93,17 +115,17 @@ static const uint8_t u8PanelCmdList[] = {
  * RGB Color
  **********************************************************************/
 #define RGB_565(red, green, blue) (((red & 0xF8) << 8) | ((green & 0xFC) << 3) | ((blue & 0xF8) >> 3))
-#define BLACK     0x0000  
-#define WHITE     0xFFFF  
-#define RED      	0xF800  
-#define GREEN     0x07E0  
-#define BLUE      0x001F  
-#define CYAN    	0x07FF  
-#define YELLOW    0xFFE0  
-#define MAGENTA   0xF81F  
-#define PINK      0xFC9F  
-#define PURPLE    0x780F  
-#define GRAY      0x8410  
+#define BLACK       0x0000  
+#define WHITE       0xFFFF  
+#define BLUE        0xF800  
+#define GREEN       0x07E0  
+#define RED         0x001F  
+#define YELLOW      0x07FF  
+#define CYAN        0xFFE0   
+#define PINK        0xF81F  
+#define MAGENTA     0xFC9F  
+#define PURPLE      0x780F  
+#define GRAY        0x8410  
 
 /*********************************************************************
  * API Prototype
@@ -131,3 +153,4 @@ void st7735_Init(void);
 #endif /* __cplusplus */
 
 #endif /* ST7735_H */
+

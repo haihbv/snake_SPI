@@ -37,17 +37,17 @@ void Snake_Init(void)
 	{
 		if (i == 0)
 		{
-			st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, MAGENTA);
+			st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, GREEN);
 		}
 		else
 		{
-			st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, GREEN);
+			st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, YELLOW);
 		}
 	}
 
 	/* Ve food */
-	// st7735_FillRect((uint8_t)food.x * BLOCK_SIZE, (uint8_t)food.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, BLUE);
-	st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, BLOCK_SIZE / 2, BLUE);
+	// st7735_FillRect((uint8_t)food.x * BLOCK_SIZE, (uint8_t)food.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, RED);
+	st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, BLOCK_SIZE / 2, RED);
 }
 void Snake_SetDirection(SnakeDirection_e dir)
 {
@@ -81,8 +81,8 @@ static void Snake_Random_Food(void)
 	}
 
 	// ve food theo pos moi
-	// st7735_FillRect((uint8_t)food.x * BLOCK_SIZE, (uint8_t)food.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, BLUE);
-	st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, BLOCK_SIZE / 2, BLUE);
+	// st7735_FillRect((uint8_t)food.x * BLOCK_SIZE, (uint8_t)food.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, RED);
+	st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, BLOCK_SIZE / 2, RED);
 }
 
 void Snake_Update(void)
@@ -176,7 +176,7 @@ void Snake_Draw(void)
 
 	/* Version 1.0
 	<ve food>
-	st7735_FillRect((uint8_t)(food.x * BLOCK_SIZE), (uint8_t)(food.y * BLOCK_SIZE), BLOCK_SIZE, BLOCK_SIZE, BLUE);
+	st7735_FillRect((uint8_t)(food.x * BLOCK_SIZE), (uint8_t)(food.y * BLOCK_SIZE), BLOCK_SIZE, BLOCK_SIZE, RED);
 
 	<ve ran>
 	for (int i = 0; i < snake_length; i++)
@@ -195,16 +195,16 @@ void Snake_Draw(void)
 	}
 
 	/* ve lai food */
-	st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, BLOCK_SIZE / 2, BLUE);
+	st7735_FillCircle((uint8_t)food.x * BLOCK_SIZE + BLOCK_SIZE / 2, (uint8_t)food.y * BLOCK_SIZE + BLOCK_SIZE / 2, BLOCK_SIZE / 2, RED);
 
 	/* ve lai than */
 	if (snake_length > 1)
 	{
-		st7735_FillRect((uint8_t)snakeBody[1].x * BLOCK_SIZE, (uint8_t)snakeBody[1].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, GREEN);
+		st7735_FillRect((uint8_t)snakeBody[1].x * BLOCK_SIZE, (uint8_t)snakeBody[1].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, YELLOW);
 	}
 
 	/* ve lai dau */
-	st7735_FillRect((uint8_t)snakeBody[0].x * BLOCK_SIZE, (uint8_t)snakeBody[0].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, MAGENTA);
+	st7735_FillRect((uint8_t)snakeBody[0].x * BLOCK_SIZE, (uint8_t)snakeBody[0].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, GREEN);
 }
 
 void Snake_Reset(void)
