@@ -7,9 +7,6 @@ extern "C" {
 
 #include <stdint.h>
 
-#define BLOCK_SIZE 8
-#define SNAKE_MAX_LEN 15
-
 typedef struct
 {
 	int16_t x;

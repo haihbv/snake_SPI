@@ -9,9 +9,24 @@ static uint16_t SnakeSpeed(uint16_t speed)
 	return speed;
 }
 
+static GameState_e prevMode = GAME_WAIT_START;
+
 void ButtonTask(void)
 {
 	// <1. START tu man cho>
+	if (gameState != prevMode)
+	{
+		if (gameState == GAME_OVER)
+		{
+			ui.ShowOverScreen();
+		}
+		else if (gameState == GAME_WIN)
+		{
+			ui.ShowWinScreen();
+		}
+		prevMode = gameState;
+	}
+	
 	if (gameState == GAME_WAIT_START)
 	{
 		if (button.GamePressed(GAME_BTN_START))
@@ -47,11 +62,23 @@ void ButtonTask(void)
 	// <3. RESET khi game OVER -> quay lai man hinh cho>
 	if (gameState == GAME_OVER || gameState == GAME_WIN)
 	{
-		if (button.GamePressed(GAME_BTN_RESET))
+		if (gameState == GAME_OVER)
 		{
-			gameState = GAME_WAIT_START;
-			ui.ShowStartScreen();
+			if (button.GamePressed(GAME_BTN_RESET))
+			{
+				gameState = GAME_WAIT_START;
+				ui.ShowStartScreen();
+			}
 		}
+		else if (gameState == GAME_WIN)
+		{
+			if (button.GamePressed(GAME_BTN_START))
+			{
+				gameState = GAME_WAIT_START;
+				ui.ShowWinScreen();
+			}
+		}
+		
 	}
 }
 void FlushSnakeTask(void)
@@ -69,9 +96,16 @@ void FlushSnakeTask(void)
 		return;
 	}
 
-	if (gameState == GAME_OVER || gameState == GAME_WIN)
+	if (gameState == GAME_OVER)
 	{
-		snake.Draw();
+		ui.UpdateOverBlink();
+		return;
+	}
+	
+	if (gameState == GAME_WIN)
+	{
+		ui.UpdateWinBlink();
+		return;
 	}
 }
 

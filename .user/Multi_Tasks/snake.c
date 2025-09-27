@@ -4,6 +4,18 @@
 #include <string.h>
 #include <stdlib.h>
 
+#ifndef BLOCK_SIZE
+#define BLOCK_SIZE 8
+#endif
+
+#ifndef SNAKE_MAX_LEN
+#define SNAKE_MAX_LEN 100
+#endif
+
+#define GRID_W   (ST7735_WIDTH  / BLOCK_SIZE)
+#define GRID_H   (ST7735_HEIGHT / BLOCK_SIZE)
+#define CELL(x)  ((x) * BLOCK_SIZE)
+
 Snake_Driver_t snake;
 static Point_t snakeBody[SNAKE_MAX_LEN];
 static uint16_t snake_length;
@@ -11,10 +23,6 @@ static SnakeDirection_e direction;
 static Point_t food;
 static Point_t tail;
 GameState_e gameState;
-
-#define GRID_W (ST7735_WIDTH / BLOCK_SIZE)
-#define GRID_H (ST7735_HEIGHT / BLOCK_SIZE)
-#define CELL(x) ((x) * BLOCK_SIZE)
 
 static uint8_t s_rng_seeded = 0;
 
@@ -192,16 +200,16 @@ void Snake_Update(void)
 
 void Snake_Draw(void)
 {
-	if (gameState == GAME_OVER)
-	{
-		lcd.PutString((ST7735_WIDTH - 9 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "GAME OVER", Font_11x18, WHITE, BLACK);
-		return;
-	}
-	if (gameState == GAME_WIN)
-	{
-		lcd.PutString((ST7735_WIDTH - 7 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "YOU WIN", Font_11x18, WHITE, BLACK);
-		return;
-	}
+//	if (gameState == GAME_OVER)
+//	{
+//		lcd.PutString((ST7735_WIDTH - 9 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "GAME OVER", Font_11x18, WHITE, BLACK);
+//		return;
+//	}
+//	if (gameState == GAME_WIN)
+//	{
+//		lcd.PutString((ST7735_WIDTH - 7 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "YOU WIN", Font_11x18, WHITE, BLACK);
+//		return;
+//	}
 
 	if (!(snakeBody[0].x == food.x && snakeBody[0].y == food.y))
 	{

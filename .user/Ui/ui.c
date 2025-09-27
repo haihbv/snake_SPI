@@ -88,6 +88,66 @@ void UI_UpdateStartBlink(void)
 	}
 }
 
+void UI_ShowOverScreen(void)
+{
+	lcd.FillScreen_Fast(GAME_BG_COLOR);
+	Frame(GAME_ACCENT_COLOR);
+
+	Text_Center(20, "E N D", UI_FONT_TITLE, GAME_TITLE_COLOR, GAME_BG_COLOR);
+	Text_Center_Highlight(48, "Press ", "RESET", " to play", Font_6x8, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
+	Text_Center(62, "game again", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_BG_COLOR);
+
+	blinkTs = millis();
+	blinkOn = 1;
+}
+void UI_UpdateOverBlink(void)
+{
+	uint32_t now = millis();
+	if (now - blinkTs > 500)
+	{
+		blinkTs = now;
+		blinkOn = !blinkOn;
+		if (blinkOn)
+		{
+			Text_Center_Highlight(92, ">> Push ", "RESET", " <<", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
+		}
+		else
+		{
+			Text_Center_Highlight(92, ">> Push ", "RESET", " <<", UI_FONT_TEXT, GAME_BG_COLOR, GAME_BG_COLOR, GAME_BG_COLOR);
+		}
+	}
+}
+
+void UI_ShowWinScreen(void)
+{
+	lcd.FillScreen_Fast(GAME_BG_COLOR);
+	Frame(GAME_ACCENT_COLOR);
+
+	Text_Center(20, "You Win", UI_FONT_TITLE, GAME_TITLE_COLOR, GAME_BG_COLOR);
+	Text_Center_Highlight(48, "Press ", "RESTART", " to", Font_6x8, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
+	Text_Center(62, "play game again", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_BG_COLOR);
+
+	blinkTs = millis();
+	blinkOn = 1;
+}
+void UI_UpdateWinBlink(void)
+{
+	uint32_t now = millis();
+	if (now - blinkTs > 500)
+	{
+		blinkTs = now;
+		blinkOn = !blinkOn;
+		if (blinkOn)
+		{
+			Text_Center_Highlight(92, ">> Push ", "RESTART", " <<", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
+		}
+		else
+		{
+			Text_Center_Highlight(92, ">> Push ", "RESTART", " <<", UI_FONT_TEXT, GAME_BG_COLOR, GAME_BG_COLOR, GAME_BG_COLOR);
+		}
+	}
+}
+
 void UI_ClearToGameBg(void)
 {
 	lcd.FillScreen_Fast(GAME_BG_COLOR);
@@ -101,6 +161,13 @@ void UI_AutoInit(void) __attribute__((constructor));
 void UI_AutoInit(void)
 {
 	ui.ShowStartScreen = UI_ShowStartScreen;
-	ui.ClearToGameBg = UI_ClearToGameBg;
 	ui.UpdateStartBlink = UI_UpdateStartBlink;
+	
+	ui.ShowOverScreen = UI_ShowOverScreen;
+	ui.UpdateOverBlink = UI_UpdateOverBlink;
+	
+	ui.ShowWinScreen = UI_ShowWinScreen;
+	ui.UpdateWinBlink = UI_UpdateWinBlink;
+	
+	ui.ClearToGameBg = UI_ClearToGameBg;
 }
