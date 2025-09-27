@@ -63,8 +63,8 @@ void UI_ShowStartScreen(void)
 	Frame(GAME_ACCENT_COLOR);
 
 	Text_Center(20, "S N A K E", UI_FONT_TITLE, GAME_TITLE_COLOR, GAME_BG_COLOR);
-	Text_Center_Highlight(48, "Press ", "START", " to enter", Font_6x8, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
-	Text_Center(62, "Game", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_BG_COLOR);
+	Text_Center_Highlight(48, "Press ", "START", " to", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
+	Text_Center(62, "Enter Game", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_BG_COLOR);
 
 	blinkTs = millis();
 	blinkOn = 1;
@@ -73,7 +73,7 @@ void UI_ShowStartScreen(void)
 void UI_UpdateStartBlink(void)
 {
 	uint32_t now = millis();
-	if (now - blinkTs > 500)
+	if (now - blinkTs > 200)
 	{
 		blinkTs = now;
 		blinkOn = !blinkOn;
@@ -94,16 +94,15 @@ void UI_ShowOverScreen(void)
 	Frame(GAME_ACCENT_COLOR);
 
 	Text_Center(20, "E N D", UI_FONT_TITLE, GAME_TITLE_COLOR, GAME_BG_COLOR);
-	Text_Center_Highlight(48, "Press ", "RESET", " to play", Font_6x8, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
-	Text_Center(62, "game again", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_BG_COLOR);
-
+	Text_Center_Highlight(48, "Press ", "RESET", " button", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
+	Text_Center(62, "to continue play", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_BG_COLOR);
 	blinkTs = millis();
 	blinkOn = 1;
 }
 void UI_UpdateOverBlink(void)
 {
 	uint32_t now = millis();
-	if (now - blinkTs > 500)
+	if (now - blinkTs > 200)
 	{
 		blinkTs = now;
 		blinkOn = !blinkOn;
@@ -123,9 +122,9 @@ void UI_ShowWinScreen(void)
 	lcd.FillScreen_Fast(GAME_BG_COLOR);
 	Frame(GAME_ACCENT_COLOR);
 
-	Text_Center(20, "You Win", UI_FONT_TITLE, GAME_TITLE_COLOR, GAME_BG_COLOR);
-	Text_Center_Highlight(48, "Press ", "RESTART", " to", Font_6x8, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
-	Text_Center(62, "play game again", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_BG_COLOR);
+	Text_Center(20, "YOU WIN", UI_FONT_TITLE, GAME_TITLE_COLOR, GAME_BG_COLOR);
+	Text_Center_Highlight(48, "Press ", "RESTART", " ", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_ACCENT_COLOR, GAME_BG_COLOR);
+	Text_Center(62, "button to continue", UI_FONT_TEXT, GAME_TEXT_COLOR, GAME_BG_COLOR);
 
 	blinkTs = millis();
 	blinkOn = 1;
@@ -133,7 +132,7 @@ void UI_ShowWinScreen(void)
 void UI_UpdateWinBlink(void)
 {
 	uint32_t now = millis();
-	if (now - blinkTs > 500)
+	if (now - blinkTs > 200)
 	{
 		blinkTs = now;
 		blinkOn = !blinkOn;

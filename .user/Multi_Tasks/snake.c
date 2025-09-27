@@ -9,7 +9,7 @@
 #endif
 
 #ifndef SNAKE_MAX_LEN
-#define SNAKE_MAX_LEN 100
+#define SNAKE_MAX_LEN 17
 #endif
 
 #define GRID_W   (ST7735_WIDTH  / BLOCK_SIZE)

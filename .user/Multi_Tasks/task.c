@@ -11,6 +11,33 @@ static uint16_t SnakeSpeed(uint16_t speed)
 
 static GameState_e prevMode = GAME_WAIT_START;
 
+static inline void StartNewGame(void)
+{
+	ui.ClearToGameBg();
+	snake.Reset();
+	gameState = GAME_RUNNING;
+}
+
+static inline void ControlGame(void)
+{
+	if (button.CtrlPressed(CTRL_BTN_UP))
+	{
+		snake.Direction(SNAKE_UP);
+	}
+	if (button.CtrlPressed(CTRL_BTN_DOWN))
+	{
+		snake.Direction(SNAKE_DOWN);
+	}
+	if (button.CtrlPressed(CTRL_BTN_LEFT))
+	{
+		snake.Direction(SNAKE_LEFT);
+	}
+	if (button.CtrlPressed(CTRL_BTN_RIGHT))
+	{
+		snake.Direction(SNAKE_RIGHT);
+	}
+}
+
 void ButtonTask(void)
 {
 	// <1. START tu man cho>
@@ -41,22 +68,7 @@ void ButtonTask(void)
 	// <2. Control khi dang choi>
 	if (gameState == GAME_RUNNING)
 	{
-		if (button.CtrlPressed(CTRL_BTN_UP))
-		{
-			snake.Direction(SNAKE_UP);
-		}
-		if (button.CtrlPressed(CTRL_BTN_DOWN))
-		{
-			snake.Direction(SNAKE_DOWN);
-		}
-		if (button.CtrlPressed(CTRL_BTN_LEFT))
-		{
-			snake.Direction(SNAKE_LEFT);
-		}
-		if (button.CtrlPressed(CTRL_BTN_RIGHT))
-		{
-			snake.Direction(SNAKE_RIGHT);
-		}
+		ControlGame();
 	}
 
 	// <3. RESET khi game OVER -> quay lai man hinh cho>
@@ -74,11 +86,9 @@ void ButtonTask(void)
 		{
 			if (button.GamePressed(GAME_BTN_START))
 			{
-				gameState = GAME_WAIT_START;
-				ui.ShowWinScreen();
+				StartNewGame();
 			}
 		}
-		
 	}
 }
 void FlushSnakeTask(void)
