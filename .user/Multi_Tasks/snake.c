@@ -1,6 +1,7 @@
 #include "snake.h"
 #include "st7735.h"
 #include "delay.h"
+#include "ui.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -12,9 +13,9 @@
 #define SNAKE_MAX_LEN 17
 #endif
 
-#define GRID_W   (ST7735_WIDTH  / BLOCK_SIZE)
-#define GRID_H   (ST7735_HEIGHT / BLOCK_SIZE)
-#define CELL(x)  ((x) * BLOCK_SIZE)
+#define GRID_W (ST7735_WIDTH / BLOCK_SIZE)
+#define GRID_H (ST7735_HEIGHT / BLOCK_SIZE)
+#define CELL(x) ((x) * BLOCK_SIZE)
 
 Snake_Driver_t snake;
 static Point_t snakeBody[SNAKE_MAX_LEN];
@@ -22,6 +23,12 @@ static uint16_t snake_length;
 static SnakeDirection_e direction;
 static Point_t food;
 static Point_t tail;
+
+static inline uint16_t Snake_GetScore(void)
+{
+	return (snake_length > 3) ? (uint16_t)(snake_length - 3) : 0;
+}
+
 GameState_e gameState;
 
 static uint8_t s_rng_seeded = 0;
@@ -53,7 +60,6 @@ void Snake_Init(void)
 		uint16_t color = (i == 0) ? GREEN : YELLOW;
 		st7735_FillRect((uint8_t)snakeBody[i].x * BLOCK_SIZE, (uint8_t)snakeBody[i].y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, color);
 	}
-	// draw_food_cell(food.x, food.y, RED);
 }
 void Snake_SetDirection(SnakeDirection_e dir)
 {
@@ -174,6 +180,7 @@ void Snake_Update(void)
 		if (snakeBody[0].x == snakeBody[i].x && snakeBody[0].y == snakeBody[i].y)
 		{
 			gameState = GAME_OVER;
+			UI_SetFinalScore(Snake_GetScore());
 			return;
 		}
 	}
@@ -191,6 +198,7 @@ void Snake_Update(void)
 		if (snake_length >= total_cells || snake_length >= SNAKE_MAX_LEN)
 		{
 			gameState = GAME_WIN;
+			UI_SetFinalScore(Snake_GetScore());
 			return;
 		}
 		/* Con o trong -> tiep tuc sinh moi moi */
@@ -200,16 +208,10 @@ void Snake_Update(void)
 
 void Snake_Draw(void)
 {
-//	if (gameState == GAME_OVER)
-//	{
-//		lcd.PutString((ST7735_WIDTH - 9 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "GAME OVER", Font_11x18, WHITE, BLACK);
-//		return;
-//	}
-//	if (gameState == GAME_WIN)
-//	{
-//		lcd.PutString((ST7735_WIDTH - 7 * 11) / 2, (ST7735_HEIGHT - 18) / 2, "YOU WIN", Font_11x18, WHITE, BLACK);
-//		return;
-//	}
+	if (gameState != GAME_RUNNING)
+	{
+		return;
+	}
 
 	if (!(snakeBody[0].x == food.x && snakeBody[0].y == food.y))
 	{
